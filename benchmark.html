@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./image.png">
+  <!-- Cache prevention meta tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Benchmark - Frontier-A1-VL</title>
+  <script src="./echarts.min.js?v=1.0.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <!-- Include Mermaid.js library -->
+  <script src="./mermaid.min.js?v=1.0.0"></script>
+  <link rel="stylesheet" href="./common.css?v=1.0.0">
+  <script src="./navbar.js?v=1.0.0"></script>
+  <script src="./footer.js?v=1.0.0"></script>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --indigo: #6366f1;
+      --indigo-700: #4f46e5;
+      --slate: #94a3b8;
+      --emerald: #059669;
+      --shadow: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.15);
+      --primary-red: #dc2626;
+      --primary-red-dark: #b91c1c;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --glow: 0 0 20px rgba(220, 38, 38, 0.3);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      padding-top: 64px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(220, 38, 38, 0.15) 0%, transparent 50%);
+      z-index: -1;
+      animation: backgroundShift 20s ease-in-out infinite;
+    }
+    
+    @keyframes backgroundShift {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(1deg); }
+    }
+    
+    .wave-line {
+      position: relative;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+      margin: 40px 0;
+      overflow: hidden;
+    }
+    
+    .wave-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+      animation: waveMove 3s linear infinite;
+    }
+    
+    @keyframes waveMove {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow), 0 0 20px rgba(220, 38, 38, 0.2);
+      border-color: var(--primary-red);
+    }
+    
+    .glitch {
+      position: relative;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+    }
+    
+    .glitch::before {
+      animation: glitch-1 0.6s infinite ease-in-out alternate-reverse;
+      color: var(--accent-cyan);
+      z-index: -1;
+    }
+    
+    .glitch::after {
+      animation: glitch-2 0.6s infinite ease-in-out alternate-reverse;
+      color: var(--primary-red);
+      z-index: -2;
+    }
+    
+    @keyframes glitch-1 {
+      0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, -2px); }
+      20% { clip-path: inset(92% 0 1% 0); transform: translate(2px, 2px); }
+      40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, 2px); }
+      60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -2px); }
+      80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
+      100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, -2px); }
+    }
+    
+    @keyframes glitch-2 {
+      0% { clip-path: inset(65% 0 31% 0); transform: translate(2px, 2px); }
+      20% { clip-path: inset(24% 0 74% 0); transform: translate(-2px, -2px); }
+      40% { clip-path: inset(56% 0 16% 0); transform: translate(2px, -2px); }
+      60% { clip-path: inset(87% 0 9% 0); transform: translate(-2px, 2px); }
+      80% { clip-path: inset(12% 0 83% 0); transform: translate(2px, 2px); }
+      100% { clip-path: inset(29% 0 68% 0); transform: translate(-2px, -2px); }
+    }
+    
+    .btn-primary { 
+      background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+    
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+    
+    .btn-primary:hover { 
+      background: linear-gradient(135deg, var(--primary-red-dark), var(--primary-red));
+      transform: translateY(-2px);
+      box-shadow: var(--shadow), var(--glow), 0 0 30px rgba(220, 38, 38, 0.5);
+    }
+    
+    .pill { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); padding:4px 10px; border-radius:999px; font-size:12px; color:#374151; background:#ffffffb3; backdrop-filter: blur(6px); }
+    
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    
+    /* Mind Map Button Styles */
+    .controls button {
+      padding: 10px 20px;
+      margin: 0 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-red);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+    
+    .controls button:hover {
+      background-color: var(--primary-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+    }
+    
+    .controls button:active {
+      transform: translateY(0);
+    }
+    
+    #drag-toggle {
+      background-color: var(--primary-red);
+    }
+    
+    #drag-toggle.active {
+      background-color: #059669;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    
+    .nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .tabs {
+      display: none;
+      gap: 18px;
+      font-size: 14px;
+    }
+    
+    .tabs button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #374151;
+      font: inherit;
+      padding: 6px 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .tabs button::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-red);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .tabs button.active::after,
+    .tabs button:hover::after {
+      transform: scaleX(1);
+    }
+    
+    .tabs button.active, .tabs button:hover {
+      color: var(--primary-red);
+    }
+    
+    @media (min-width: 768px) { .tabs { display:flex; } .hide-md { display: inline-flex; } }
+    
+    /* Navigation link remove text decoration */
+    nav a { text-decoration: none; }
+    
+    section { scroll-margin-top: 80px; padding: 64px 0; }
+    .section-title { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom: 28px; }
+    h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; margin: 0; font-weight: 800; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(22px, 3.5vw, 28px); margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+    p.lead { margin: 16px 0 0; color: #4b5563; font-size: 18px; max-width: 100%; text-align: left; }
+
+    .grid { display:grid; gap: 24px; }
+    @media (min-width: 768px){ .grid-2 { grid-template-columns: 1fr 1fr; } .grid-3 { grid-template-columns: repeat(3,1fr);} .grid-4 { grid-template-columns: repeat(4,1fr);} }
+
+    .demo-container { max-width: 1200px; margin: 0 auto; }
+    
+    footer { border-top:1px solid var(--border); padding: 40px 0; font-size: 14px; color:#6b7280; }
+    .row { display:flex; gap:12px; flex-wrap: wrap; }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      table-layout: auto;
+    }
+    
+    th {
+      padding: 15px 12px;
+      cursor: pointer;
+      background: #f8fafc;
+      border-bottom: 2px solid var(--border);
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    td {
+      padding: 15px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      color: var(--text);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:hover {
+      background: #fafafa;
+    }
+    
+    /* MindElixir mind map style optimization */
+    #mindmap-container {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 900px;
+      border: 1px solid var(--border);
+      background-color: var(--card);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    
+    /* Mind map container styles */
+    #mindmap-container .map-container {
+      background: var(--card) !important;
+      border-radius: 12px !important;
+    }
+    
+    /* Node style optimization */
+    #mindmap-container .map-container .node {
+      transition: all 0.3s ease;
+    }
+    
+    #mindmap-container .map-container .node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Connection line style optimization */
+    #mindmap-container .map-container .link {
+      transition: stroke 0.3s ease;
+    }
+    
+    /* Ensure mind map responsiveness */
+    #mindmap-container .map-container {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+    /* Mind Map Styles */
+    .mindmap-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    /* 行业评测集部分样式 */
+    .industry-benchmark-section {
+      margin-top: 60px;
+    }
+    
+    /* 行业评测集思维导图容器样式 */
+    #industry-mindmap-container {
+      width: 100%;
+      height: 800px;
+      border: 1px solid var(--border);
+      background-color: var(--card);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: auto;
+      position: relative;
+      padding: 20px;
+    }
+    
+    /* Mermaid图表样式 */
+    #industry-mindmap-container svg {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 100%;
+    }
+    
+    /* 行业评测集控制按钮样式 - 与通用Benchmark保持一致 */
+    .industry-mindmap-controls {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .industry-mindmap-controls button {
+      padding: 10px 20px;
+      margin: 0 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-red);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+    
+    .industry-mindmap-controls button:hover {
+      background-color: var(--primary-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+    }
+    
+    .industry-mindmap-controls button:active {
+      transform: translateY(0);
+    }
+    
+    /* 分类统计卡片 */
+    .category-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+    
+    .stat-card {
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary-red);
+      transition: all 0.3s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .stat-card h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary-red);
+      font-size: 18px;
+    }
+    
+    .stat-card .count {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    
+    .stat-card .label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .mindmap-root {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .mindmap-root:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(220, 38, 38, 0.4);
+    }
+
+    .branch-node {
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .branch-node:hover {
+      transform: scale(1.05);
+    }
+
+    .branch-content {
+      transition: all 0.3s ease;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sub-node {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sub-node:hover {
+      background: #e5e7eb !important;
+      transform: translateX(5px);
+    }
+
+    .data-item {
+      color: #6b7280;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .branch-line {
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .mindmap-branches {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .mindmap-container {
+        overflow-x: auto;
+        padding: 15px;
+      }
+      th, td {
+        padding: 10px 8px;
+        font-size: 14px;
+      }
+    }
+    
+    /* Pie chart navigation buttons */
+    #back-btn:hover, #reset-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+    
+    #back-btn:active, #reset-btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="./image.png" alt="Frontier-A1-VL Logo" style="width: 40px; height: 40px; margin-right: 12px;">
+        <span style="font-weight: 700; font-size: 18px; color: var(--primary-red);">Frontier-A1-VL</span>
+      </div>
+      <nav class="tabs" id="tabs"></nav>
+      <div class="row">
+      </div>
+    </div>
+  </header>
+
+  <!-- Benchmark -->
+  <section id="benchmark">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;">Benchmark</h2>
+      </div>
+      
+      <!-- Card 1: Benchmark Design -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h3 style="color: var(--primary-red); font-size: 28px; font-weight: 700;">Benchmark Design</h3>
+      </div>
+      <div class="card">
+        <!-- Benchmark Design Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 30px;">
+          <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; margin-bottom: 18px;">
+              <div style="width: 44px; height: 44px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.2)); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 14px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="m2 17 10 5 10-5"/>
+                  <path d="m2 12 10 5 10-5"/>
+                </svg>
+              </div>
+              <h4 style="margin: 0; color: var(--text); font-size: 18px; font-weight: 600;">通用Benchmark</h4>
+            </div>
+            <p style="color: var(--muted); line-height: 1.7; margin: 0; font-size: 15px;">
+              涵盖15个精心策划的通用评测集，包含<strong>通用感知</strong>、<strong>时空理解</strong>、<strong>物理规律理解</strong>3个大的能力维度，提供全面的多模态AI系统能力评估。包含超过<strong>12万</strong>个高质量问题，确保对模型基础能力的深度测试。
+            </p>
+          </div>
+
+          <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; margin-bottom: 18px;">
+              <div style="width: 44px; height: 44px; background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.2)); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 14px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-red)" stroke-width="2">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                  <path d="M12 5L8 21l4-7 4 7-4-16"/>
+                </svg>
+              </div>
+              <h4 style="margin: 0; color: var(--text); font-size: 18px; font-weight: 600;">行业Benchmark</h4>
+            </div>
+            <p style="color: var(--muted); line-height: 1.7; margin: 0; font-size: 15px;">
+              专门针对<strong>交通</strong>和<strong>能源</strong>两大关键行业设计的专业评测集，包含<strong>2293</strong>个真实场景数据样本。覆盖交通违停检测、道路状况分析、管线安全监控、井场设备识别等实际应用场景，为工业级AI应用提供专业化评估。
+            </p>
+          </div>
+        </div>
+
+        <!-- Separator -->
+        <div style="margin: 50px 0; text-align: center;">
+          <div style="height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 0 auto; max-width: 200px;"></div>
+        </div>
+
+        <!-- Benchmark Mind Map Structure -->
+        <div style="margin-bottom: 30px;">
+          <h3 style="margin-bottom: 20px; color: var(--primary-red); text-align: center;">Ontology</h3>
+          <div class="controls" style="text-align: center; margin: 20px 0;">
+            <button onclick="expandAll()">全部展开</button>
+            <button onclick="collapseAll()">全部收起</button>
+            <button onclick="zoomIn()">放大</button>
+            <button onclick="zoomOut()">缩小</button>
+            <button onclick="resetZoom()">重置缩放</button>
+            <button onclick="toggleDrag()" id="drag-toggle">启用拖拽</button>
+            <span id="zoom-indicator" style="margin-left: 15px; color: var(--muted); font-size: 14px;">缩放: 100%</span>
+          </div>
+          <div id="mindmap-container" style="width: 100%; height: 900px; border: 1px solid var(--border); background-color: var(--card); border-radius: 12px; box-shadow: var(--shadow);"></div>
+        </div>
+      </div>
+      
+      <!-- Card 2: 通用评测集 -->
+      <div style="text-align: center; margin: 60px 0 40px 0;">
+        <h3 style="color: var(--primary-red); font-size: 28px; font-weight: 700;">通用评测集</h3>
+      </div>
+      <div class="card">
+        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); table-layout: auto; border: 1px solid var(--border);">
+          <thead>
+            <tr>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 12%;">大类</th>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 15%;">一级子类别</th>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 15%;">二级子类别</th>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 28%;">说明</th>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 20%;">来源评测集</th>
+              <th style="padding: 15px 12px; cursor: pointer; background: #f8fafc; border: 1px solid var(--border); text-align: center; width: 10%; min-width: 100px;">数据量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 通用感知 (General Perception) -->
+            <tr style="border: 1px solid var(--border);"><td rowspan="9" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">通用感知<br>(General Perception)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Detection / Grounding</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">检测与定位（如识别图片中的目标物体并定位）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MVBench；MMVet v2；MegaBench；VSI-Bench；UrbanVideo-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">3431</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Counting</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">计数（如统计图片中物体的数量）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MVBench；VSI-Bench；MMSI-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">3765</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Pointing / REC</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">指向 / 区域识别（如指出某物体或区域）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">3008</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Segmentation</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">图像分割（如将不同物体从图像中分割出来）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMVet v2；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">15</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Classification</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">分类</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMMU；VSI-Bench</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">5112</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">OCR / Chart / Doc</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">光学字符识别（从图像中识别文字）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MathVista；OCRBench v2；MATH-Vision；MMVet v2；ChartQA；TextVQA；DocVQA；MegaBench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">23419</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Captioning</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">根据图像生成自然语言描述</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMVet v2；MegaBench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">6087</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Image eval</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">图像评估</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">-</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">365</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Knowledge reasoning</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">/</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">知识推理（基于常识或知识库进行推理）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMMU；MathVista；MATH-Vision；ChartQA；TextVQA；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">29939</td></tr>
+            
+            <!-- 时空理解 (Spatial & Temporal Understanding) -->
+            <tr style="border: 1px solid var(--border);"><td rowspan="12" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">时空理解<br>(Spatial & Temporal Understanding)</td><td rowspan="8" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">空间 (Spatial)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Multi-view corresponding</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">多视角匹配（如从不同视角识别同一物体或场景）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMSI-Bench；ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">138</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Environment</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">环境相关（如判断交通违停等现实场景问题）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">VSI-Bench；MMSI-Bench；UrbanVideo-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">8498</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Plausibility</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">合理性判断</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">-</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">86</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Affordance</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">理解物体与人类、动物、机器人等主体之间的交互可能性（如椅子可以坐）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">601</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Camera</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">相机相关（如相机移动、角度、位置变化及场景转换）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMSI-Bench</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">307</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Relationship</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">物体之间的空间关系（如上下左右、包含、相邻等）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">VCR-EN-Easy；VSI-Bench；ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">11523</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Measurement</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">测量（如长度、距离等的估计）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MathVista；MATH-Vision；MMSI-Bench；VSI-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">4117</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Speed estimation</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">速度估计（如估计物体的运动速度）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">-</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">244</td></tr>
+            
+            <tr style="border: 1px solid var(--border);"><td rowspan="4" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">时间 (Temporal)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Action / Event</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">事件总结（如描述视频中发生了什么事情）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MVBench；MMBench-Video；VSI-Bench；UrbanVideo-Bench；M3-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">5674</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Trajectory reasoning</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">轨迹判断（如预测或分析物体的运动轨迹）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMSI-Bench；VSI-Bench；UrbanVideo-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">3041</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Future / Past reasoning</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">预测未来事件或分析历史事件的完成度</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">MMSI-Bench；MMBench-Video；Video-MME；UrbanVideo-Bench；ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">2364</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Causality</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">事件因果关系（如判断某个事件是由另一个事件引起的）</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">VCR-EN-Easy；MMSI-Bench；ERQA;M3-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">230</td></tr>
+            
+            <!-- 物理规律理解 (Physical Understanding) -->
+            <tr style="border: 1px solid var(--border);"><td rowspan="7" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">物理规律理解<br>(Physical Understanding)</td><td rowspan="3" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">直觉物理<br>(Intuitive Physics)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Electromagnetism</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">电磁学相关物理定律，包括：<br>• 光学（光、阴影、遮挡、反射、折射、衍射、吸收、透射等）<br>• 电学<br>• 磁学<br><strong>说明</strong>：理解与电磁相关的物理现象与规律</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">phyx；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">1355</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Thermodynamics</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">热力学相关物理定律，如：<br>• 热量<br>• 温度变化<br>• 蒸发<br>• 热传递<br>• 热胀冷缩等<br><strong>说明</strong>：理解与热相关的物理现象</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">phyx；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">1035</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Anti-Physics</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">违背物理定律的情况，如：<br>• 反重力<br>• 时间倒流<br>• 永动机<br>• 突然消失等<br><strong>说明</strong>：识别或理解不符合现实物理规律的场景或现象</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">-</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">92</td></tr>
+            
+            <tr style="border: 1px solid var(--border);"><td rowspan="4" style="padding: 15px 12px; font-weight: bold; vertical-align: middle; border: 1px solid var(--border); text-align: center;">具身推理<br>(Embodied Reasoning)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">力学 (Mechanics)</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">力学相关物理定律，包括：<br>• 静力学（平衡、稳定性、支撑、弹性、变形、重心等）<br>• 运动学（速度、加速度、直线运动、圆周运动、旋转运动等）<br>• 动力学（重力、碰撞、摩擦、滑动、惯性、动量守恒、流体与粒子等）<br><strong>说明</strong>：理解物体运动与受力相关规律</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">phyx；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">4741</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Attributes</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">物理属性判断，包括：<br>• 大小、颜色、材料、质量、温度、实体性等<br><strong>说明</strong>：确定物体的基本物理属性</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">VSI-Bench；</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">2424</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">States</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">物体状态及其变化（如冰变成水，鸡蛋从生到熟）<br><strong>说明</strong>：理解物体在不同条件下的状态及状态之间的转变</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">ERQA;</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">1381</td></tr>
+            <tr style="border: 1px solid var(--border);"><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">Object Permanence</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">物体恒存性理解，即理解某些属性在特定条件下是否可改变（如重量、形状、大小、颜色等）<br><strong>说明</strong>：判断物体在不同情境下哪些属性保持不变或可能改变</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">-</td><td style="padding: 15px 12px; border: 1px solid var(--border); vertical-align: middle; text-align: center;">200</td></tr>
+          </tbody>
+        </table>
+        
+        <!-- Benchmark Questions Distribution Pie Chart -->
+        <div style="text-align: center; margin-top: 50px;">
+          <h4 style="margin-bottom: 50px; color: var(--primary-red);">通用评测集问题分布</h4>
+          <div style="margin-bottom: 60px; display: flex; align-items: center; justify-content: space-between; max-width: 720px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; gap: 10px;">
+              <button id="back-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; display: none;">
+                ← 返回
+              </button>
+              <button id="reset-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
+                重置视图
+              </button>
+            </div>
+            <span id="current-level" style="color: var(--muted); font-size: 14px;">当前级别：主分类</span>
+          </div>
+          <div id="benchmark-pie-chart" style="width: 720px; height: 420px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;"></div>
+          <p style="margin-top: 15px; color: var(--muted); font-size: 14px; font-style: italic;">
+            <svg style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+            点击饼图的任何部分查看详细数据。
+          </p>
+        </div>
+      </div>
+      
+      <!-- Card 3: 行业评测集 -->
+      <div style="text-align: center; margin: 60px 0 40px 0;">
+        <h3 style="color: var(--primary-red); font-size: 28px; font-weight: 700;">行业评测集</h3>
+      </div>
+      <div class="card">
+        <!-- Benchmark Introduction -->
+        <div style="margin-bottom: 30px;">
+          <p style="color: var(--muted); line-height: 1.8; font-size: 16px; margin-bottom: 20px;">
+            我们的行业评测集分为两个主要类别：<strong>交通和能源</strong>，包含丰富的真实场景数据。
+            这些评测集专门针对实际应用场景进行优化，支持各种复杂的视觉识别和分析任务。
+            交通类别包括交管、路面/山体异常和桥梁基础设施。
+            能源类别涵盖管线、井场、场站和通用场景，包括人员、车辆、火焰和烟雾检测。
+          </p>
+        </div>
+        
+        <!-- Category Statistics -->
+        <div class="category-stats">
+          <div class="stat-card">
+            <h4>🚗 交通</h4>
+            <div class="count">1899</div>
+            <div class="label">数据量</div>
+          </div>
+          <div class="stat-card">
+            <h4>⚡ 能源</h4>
+            <div class="count">1947</div>
+            <div class="label">数据量</div>
+          </div>
+          <div class="stat-card">
+            <h4>📊 总计</h4>
+            <div class="count">3846</div>
+            <div class="label">数据量</div>
+          </div>
+        </div>
+        
+        <!-- Mind Map Controls -->
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+          <h4 style="margin-bottom: 20px; color: var(--primary-red); text-align: center;">行业场景分类</h4>
+          <div class="industry-mindmap-controls">
+            <button onclick="expandIndustryAll()">展开全部</button>
+            <button onclick="collapseIndustryAll()">收起全部</button>
+            <button onclick="resetIndustryZoom()">重置缩放</button>
+            <span id="industry-zoom-indicator" style="margin-left: 15px; color: var(--muted); font-size: 14px;">缩放: 100%</span>
+          </div>
+        </div>
+        
+        <!-- Mind Map Container -->
+        <div id="industry-mindmap-container"></div>
+        
+        <!-- Industry Datasets Questions Distribution Pie Chart -->
+        <div style="text-align: center; margin-top: 50px;">
+          <h4 style="margin-bottom: 50px; color: var(--primary-red);">行业评测集问题分布</h4>
+          <div style="margin-bottom: 60px; display: flex; align-items: center; justify-content: space-between; max-width: 720px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; gap: 10px;">
+              <button id="industry-back-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; display: none;">
+                ← 返回
+              </button>
+              <button id="industry-reset-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
+                重置视图
+              </button>
+            </div>
+            <span id="industry-current-level" style="color: var(--muted); font-size: 14px;">当前级别: 主分类</span>
+          </div>
+          <div id="industry-pie-chart" style="width: 720px; height: 420px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;"></div>
+          <p style="margin-top: 15px; color: var(--muted); font-size: 14px; font-style: italic;">
+            <svg style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+            点击饼图的任何部分查看详细数据。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="./benchmark-scripts.js?v=1.0.0"></script>
+  
+  <script>
+  // ----------------------- Navigation -----------------------
+  const sections = ["home","benchmark","dataset","model","result","our-team"];
+  
+      const sectionNames = {
+      "home": "Home",
+      "benchmark": "Benchmark", 
+      "dataset": "Dataset",
+      "model": "Model",
+      "result": "Result",
+      "our-team": "Our Team"
+    };
+
+  const tabs = document.getElementById('tabs');
+  sections.forEach(id=>{
+    const b=document.createElement('button');
+    b.textContent = sectionNames[id] || id.charAt(0).toUpperCase()+id.slice(1);
+    b.dataset.scrollto=id;
+    tabs.appendChild(b);
+  });
+
+  function smoothScrollTo(id){
+    const el=document.getElementById(id);
+    if(!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({top, behavior:'smooth'});
+  }
+
+  document.addEventListener('click',(e)=>{
+    const t=e.target.closest('[data-scrollto]');
+    if(t){ 
+      e.preventDefault(); 
+      // Navigate to corresponding page based on button
+      switch(t.dataset.scrollto) {
+        case 'home':
+          window.location.href = 'home.html';
+          break;
+        case 'benchmark':
+          window.location.href = 'benchmark.html';
+          break;
+        case 'dataset':
+          window.location.href = 'dataset.html';
+          break;
+        case 'model':
+          window.location.href = 'model.html';
+          break;
+        case 'result':
+          window.location.href = 'result.html';
+          break;
+        case 'our-team':
+          window.location.href = 'team.html';
+          break;
+        default:
+          smoothScrollTo(t.dataset.scrollto);
+      }
+    }
+  });
+
+  // Set active tab
+  Array.from(tabs.children).forEach(btn => {
+    if(btn.dataset.scrollto === 'benchmark') {
+      btn.classList.add('active');
+    }
+  });
+  </script>
+</body>
+</html>

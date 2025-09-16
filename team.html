@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="./image.png">
+  <title>Our Team</title>
+  <link rel="stylesheet" href="./inter.min.css">
+  <script src="./mermaid.min.js"></script>
+  <link rel="stylesheet" href="./common.css">
+  <script src="./navbar.js"></script>
+  <script src="./footer.js"></script>
+
+  <style>
+    /* Page specific styles */
+    body { 
+      font-family: 'Roboto', system-ui, -apple-system, sans-serif; 
+    }
+    
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 24px; 
+    }
+
+    /* Section and title styles */
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* Team member card specific styles */
+    .card {
+      text-align: center;
+    }
+
+    .muted { 
+      color: var(--muted); 
+    }
+
+    .flex { 
+      display: flex; 
+      align-items: center; 
+      gap: 16px; 
+    }
+
+    .row { 
+      display: flex; 
+      gap: 16px; 
+      align-items: center; 
+    }
+
+    body { 
+      padding-top: 64px; /* Add padding to account for fixed header */
+    }
+
+    /* Footer */
+    footer { 
+      background: #fafafa; 
+      border-top: 1px solid var(--border); 
+      padding: 32px 0; 
+      margin-top: 64px; 
+    }
+
+    footer a { 
+      color: var(--muted); 
+      text-decoration: none; 
+    }
+
+    footer a:hover { 
+      color: var(--text); 
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Our Team -->
+  <section id="our-team">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;">Our Team</h2>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0; margin-bottom:20px; color: var(--primary-red);">Core Team</h3>
+        <p style="color: var(--muted); line-height: 1.6; margin-bottom: 20px;">
+          Our mission is to build a cutting-edge multimodal large model that pushes the boundaries of AI capabilities. We have assembled an interdisciplinary team composed of experts in computer vision, natural language processing, machine learning, and other fields. Team members come from top universities and research institutions with rich R&D experience in related areas, working together to advance the state-of-the-art in multimodal AI technology.
+        </p>
+      </div>
+      <h3 style="text-align: center; margin: 30px 0 20px 0; color: var(--primary-red);">Team Members</h3>
+      <div class="grid grid-4" id="team-cards"></div>
+    </div>
+  </section>
+
+  <script>
+
+    // Team members data
+    const teamWrap = document.getElementById('team-cards');
+    const teamMembers = [
+        { name: "Richard", title: "Chief Scientist", avatar: 1 },
+        { name: "Luke", title: "Industry LLM Technical Deputy Director", avatar: 2 },
+        { name: "Min Du", title: "Algorithm Engineer", avatar: 3 },
+        { name: "Tianqi Zhao", title: "Algorithm Engineer", avatar: 4 },
+        { name: "Shigang Wang", title: "Algorithm Engineer", avatar: 5 },
+        { name: "Wenjie Wei", title: "Algorithm Expert", avatar: 6 },
+        { name: "Jason", title: "Algorithm Engineer", avatar: 7 }
+    ];
+    
+    teamMembers.forEach(member => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<div class="flex"><img src="./image.png" alt="avatar" style="width:64px; height:64px; border-radius:16px; object-fit:cover;"/>
+        <div>
+          <div style="font-weight:600;">${member.name}</div>
+          <div class="muted" style="font-size:14px;">${member.title}</div>
+        </div></div>`;
+      teamWrap.appendChild(card);
+    });
+
+    // Simple card hover effect
+    function addSimpleEffects() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-3px)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+        });
+      });
+    }
+    
+    // Initialize effects
+    window.addEventListener('load', () => {
+      addSimpleEffects();
+    });
+
+  </script>
+</body>
+</html>

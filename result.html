@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./image.png">
+  <!-- Cache prevention meta tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Frontier-A1-VL — Result</title>
+  <script src="./echarts.min.js?v=1.0.0"></script>
+  <link rel="stylesheet" href="./common.css?v=1.0.0">
+  <script src="./navbar.js?v=1.0.0"></script>
+  <script src="./footer.js?v=1.0.0"></script>
+  <style>
+    /* Page specific styles */
+
+    .demo-container { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <!-- Result -->
+<section id="result">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="color: var(--primary-red); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;">Result</h2>
+    </div>
+      <div class="demo-container">
+        <!-- General Benchmark Evaluation Results Section -->
+        <h2 style="text-align: center; margin: 0 0 40px 0; color: var(--primary-red); font-size: 24px;">🎯 General BenchMark Evaluation Results</h2>
+        <div class="card" style="margin-bottom: 30px;">
+          
+          <!-- Model Performance Comparison Subsection -->
+          <div style="margin-bottom: 40px;">
+            <h3 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red);">📊 Model Performance Comparison</h3>
+        
+        <!-- Model Performance Comparison Table -->
+        <div style="overflow-x: auto; max-width: 100%; margin: 0 auto;">
+        <table style="min-width: 1200px; width: 100%; table-layout: auto; white-space: nowrap; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <thead>
+            <tr>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">Model</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MEGA-Bench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MVBench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">TextVQA</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">VCR-EN-Easy</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">MATH-Vision</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MMBench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">VideoMME</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">ChartQA</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">DocVQA</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">OCRBench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MMMU</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">MathVista</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MMVet</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">MMSI-Bench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">VSI-Bench</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">ERQA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red);">Frontier-A1-VL(AR SFT v2)</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">33</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">66.42</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">81.82</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">91.93</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">19.26</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">81.95</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">74.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">67.4</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">82</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">44.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">46.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">63.47</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">61.28</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">29</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">48.61</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">39.75</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red);">Frontier-A1-VL(AR SFT)</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">27.5</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">66.68</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">80.79</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">94.66</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">18.095</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">85.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">51.96</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">81.77</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">43.3</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">43</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">67.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">62.80</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">26</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">36.52</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">36.25</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">Qwen2.5-VL-7B</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">36.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">69.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">79.83</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">87.57</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">25.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">83</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">61.55</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">70.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">94.98</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">44.1</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">58.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">65</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">73.07</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">28.1</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">22.77</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">42.5</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">Qwen2.5-VL-32B</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">45</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">70</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">85.24</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">89.35</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">39.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">84.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">86.16</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">96</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">51</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">70</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">73</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75.23</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">28.9</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">24.5</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">42.25</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">FUDOKI-1.5B (step 128)</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">25</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">50</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">56</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">60</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">18</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">70</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">54</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">64</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">80</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">30</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">34.3</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">45</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">38</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">31</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">24.5</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">33</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">BAGEL-7B-MOT</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">34</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">69</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">79</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">86</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">25</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">79.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">65</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">76</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">92</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">46</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">43.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">63.4</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">48.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">30.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">26.38</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">43.75</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">InternVL3-9B</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">38</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">74.3</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">79.4</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">94.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">27.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">86.5</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">68.9</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">86.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">93.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">42</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">65.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">76.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">29</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">25</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">50</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">GLM-4.1V-9B-Thking</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">40</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">83</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">94</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">28</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">85.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">73.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">87</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">95</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">45.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">68</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">80.7</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">76</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">30</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">14.06</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">40.5</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">Cosmos-Reason1-7B</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">37</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">67.22</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">84.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">83.44</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">36.67</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">80.06</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">65</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">93.95</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">45.1</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">45.33</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">65.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">62</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">15.9</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">35.7</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">38.8</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">Gemini-2.5-Pro</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">64.66</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">72</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">73.4</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">86.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">25.3</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">94</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">84.8</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">76.88</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">92.5</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">56.2</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">81.7</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">84.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">75.6</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">36.9</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">44.66</td>
+              <td style="padding: 12px; text-align: center; white-space: nowrap;">61.5</td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+          </div>
+
+          <!-- Model Performance Radar Subsection -->
+          <div style="margin-bottom: 40px;">
+            <h3 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red);">📈 Model Performance Radar</h3>
+            <div style="width: 100%; margin: 0 auto;">
+              <div id="radar-chart" style="width: 100%; height: 500px; margin: 0 auto;"></div>
+            </div>
+            <!-- Model Performance Radar 结论 -->
+            <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--primary-red);">
+              <h5 style="color: #1f2937; margin-bottom: 12px; font-size: 16px;">📊 Key Findings</h5>
+              <ul style="padding-left: 20px; line-height: 1.8; color: var(--muted);">
+                <li>Among open-source models, Qwen2.5-VL-32B achieves the best performance across all benchmarks.</li>
+                <li>Cosmos-Reason1-7B outperforms Qwen2.5-VL-7B on spatial reasoning benchmark VSI-Bench and mathematical reasoning benchmark MATH-Vision, likely due to its specialized training enhancements for reasoning capabilities. However, Cosmos-Reason1-7B shows lower performance than Qwen2.5-VL-7B on some general capability benchmarks (e.g., MMMU).</li>
+                <li>Frontier-A1-VL(AR SFT v2) demonstrates significantly better performance than Qwen2.5-VL-7B on the VSI-Bench dataset, attributed to the inclusion of industry-specific reasoning datasets in our training data.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Separator -->
+        <div style="margin: 60px 0; text-align: center;">
+          <div style="width: 100%; height: 2px; background: linear-gradient(to right, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent); margin: 0 auto;"></div>
+          <div style="margin-top: 40px; color: var(--primary-red); font-size: 24px; font-weight: 600;">行业场景评测结果</div>
+        </div>
+
+        <!-- Industry Scene Evaluation Section -->
+        <div class="card" style="margin-bottom: 30px;">
+          <h3 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red);">🚦 交通场景评测结果</h3>
+          
+          <!-- Traffic BenchMark Performance Table -->
+          <div style="overflow-x: auto; max-width: 100%; margin: 0 0 40px 0;">
+            <table style="min-width: 1800px; width: 100%; table-layout: auto; white-space: nowrap; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              <thead>
+                <tr>
+                  <th rowspan="2" style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">模型名称</th>
+                  <th colspan="14" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">交管</th>
+                  <th colspan="4" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">桥梁梁体</th>
+                  <th colspan="6" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">路面/山体异常</th>
+                </tr>
+                <tr>
+                  <!-- 交管场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">交通违停</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 100px; background: #f8fafc; font-size: 13px;">占用应急车道</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">道路拥堵</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">逆行</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">占道施工</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 100px; background: #f8fafc; font-size: 13px;">非机动车闯入</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 100px; background: #f8fafc; font-size: 13px;">护栏损坏</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 50px; background: #f8fafc; font-size: 13px;">人员检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 70px; background: #f8fafc; font-size: 13px;">机动车检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 70px; background: #f8fafc; font-size: 13px;">工程车检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 50px; background: #f8fafc; font-size: 13px;">船只检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">车牌检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">路边护栏</th>
+                  <!-- 桥梁场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">桥梁损伤</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">桥梁梁体</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">桥梁护栏</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">桥梁桥墩</th>
+                  <!-- 路面/山体异常场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">路面抛洒物</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">路面裂缝</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">路面坑洼</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">路面积水</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">山体滑坡</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 70px; background: #f8fafc; font-size: 13px;">雪糕筒</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR Agent)</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">72.60</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">72.60</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">84.6</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">91.17</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">88.17</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">70.76</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">86.01</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">73.20</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">91.32</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">64.43</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">89.21</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">97.50</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">79.21</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">83.10</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">58.6515</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">56.5816</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">49.6241</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">89.36</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">87.82</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">92.30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">89.94</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">85.79</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">72.05</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR SFT v3)</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">24.21</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">38.17</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">84.6</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">34.99</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">78.26</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">26.68</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">26.19</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">9.83</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">55.19</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">32.60</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">33.35</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">89.66</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">20.48</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">10.62</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.67</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">24.28</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">12.67</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">64.60</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">53.90</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">60.73</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">82.05</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">42.81</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">0.27</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR SFT v2)</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">24.41</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">9.29</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">69.2</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">30.98</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">82.61</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">58.79</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">13.10</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">8.19</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">44.37</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">17.34</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">26.12</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">13.30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">12.20</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">18.18</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.89</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">23.06</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">17.40</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">61.75</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">39.30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">21.26</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">79.64</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">62.46</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000;">0.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR SFT)</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">2.43</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.79</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">69.2</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">12.68</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">71.74</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">16.30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">28.57</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.79</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">15.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">10.65</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">14.50</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.32</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">7.89</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">7.54</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.33</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">20.83</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">10.67</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">8.57</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.70</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">13.42</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">55.46</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">22.11</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000;">0.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen2.5-VL-7B</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">8.76</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">76</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">70.29</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">31.43</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">27.98</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">14.19</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">40.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">23.67</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.23</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">76.15</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">10.53</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11.47</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">3.33</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.61</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">21.92</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">31.49</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">19.96</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">10.75</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">77.23</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30.53</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen2.5-VL-32B</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">24</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">7.7</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">75</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">15.3</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">75.6</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">39.5</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">54.9</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">43.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">43.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">81.3</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">14.2</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">9.6</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">45.5</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">75.6</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">18</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">7</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">17.5</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">60.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">40</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">1.4</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">FUDOKI-1.5B</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Cosmos-Reason1-7B</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">7.38</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">5.89</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">69.2</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">6.24</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">68.12</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">24.12</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">24.40</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">6.09</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.06</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">23.31</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11.57</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">9.70</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">5.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30.83</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">12.13</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30.20</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">6.38</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">41.95</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">63.46</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">31.23</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">0.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">BAGEL-7B-MOT</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">61.54</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">5.80</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">19.64</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.50</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">0.00</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.53</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.67</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">1.67</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">1.14</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">0.86</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">30.23</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">3.16</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">0.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">InternVL3-9B</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">GLM-4.1V-9B-Thinking</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Gemini-2.5-Pro</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">42.03</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">14.29</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.04</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.71</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">2.50</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">3.17</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">3.27</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">0.00</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">0.00</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">6.17</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">3.52</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.56</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">26.32</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">0.00</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen-VL-Plus(阿里专供)</td>
+                  <!-- 交管场景数据 (14列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">29.97</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">8.05</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">30.77</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11.69</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">76.81</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">6.98</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">27.98</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.82</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">60.92</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">28.07</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">72.93</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">95.97</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">37.39</td>
+                  <!-- 桥梁场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11.81</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">4.44</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">40.61</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">46.21</td>
+                  <!-- 路面/山体异常场景数据 (6列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">37.62</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">24.77</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">13.67</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">80.43</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">54.04</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">4.01</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Traffic Scene Charts -->
+          <div style="margin-top: 40px;">
+            <h4 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red); font-size: 20px;">📊 交通场景性能图表</h4>
+            <!-- Radar Chart -->
+            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+              <h5 style="text-align: center; margin: 0 0 20px 0; color: #1f2937; font-size: 16px;">性能雷达图</h5>
+              <div id="traffic-radar-chart" style="width: 100%; height: 600px;"></div>
+            </div>
+            <!-- Bar Chart -->
+            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+              <h5 style="text-align: center; margin: 0 0 20px 0; color: #1f2937; font-size: 16px;">各类别平均性能</h5>
+              <div id="traffic-bar-chart" style="width: 100%; height: 400px;"></div>
+            </div>
+          </div>
+
+          <!-- Traffic BenchMark Insights -->
+          <div style="margin-top: 40px; padding: 24px; background: #f8fafc; border-radius: 12px;">
+            <h4 style="color: var(--primary-red); margin-bottom: 16px; font-size: 18px;">💡 交通场景评测结论</h4>
+            <ul style="padding-left: 20px; line-height: 1.8; color: var(--muted); margin: 0;">
+              <li>Qwen2.5-VL-32B 模型在大部分交通场景的性能表现最佳。</li>
+              <li>FUDOKI 1.5B 模型在交通垂域场景的表现效果很差。</li>
+              <li>Qwen2.5-VL-7B 模型在山体滑坡场景上效果表现优于Qwen2.5-VL-32B。</li>
+              <li>所有模型在交通场景的平均准确率均高于桥梁和路面场景。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Energy BenchMark Section -->
+        <div class="card" style="margin-bottom: 30px;">
+          <h3 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red);">⚡ 能源场景评测结果</h3>
+          
+          <!-- Energy BenchMark Performance Table -->
+          <div style="overflow-x: auto; max-width: 100%; margin: 0 0 40px 0;">
+            <table style="min-width: 1400px; width: 100%; table-layout: auto; white-space: nowrap; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              <thead>
+                <tr>
+                  <th rowspan="2" style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">模型名称</th>
+                  <th colspan="5" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">管线</th>
+                  <th colspan="11" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">井场</th>
+                  <th colspan="4" style="padding: 12px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap; background: #f0f4f8;">场站</th>
+                </tr>
+                <tr>
+                  <!-- 管线场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">管线漏油</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">管道裸露</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">盗油</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">管线占压</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">管道塌方</th>
+                  <!-- 井场场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 70px; background: #f8fafc; font-size: 13px;">磕头机</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">驴头</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">磕头机轴承</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 60px; background: #f8fafc; font-size: 13px;">油箱</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 70px; background: #f8fafc; font-size: 13px;">储油罐</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">井场驴头抽停</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">井场漏油</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">井场火焰</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 80px; background: #f8fafc; font-size: 13px;">井场烟雾</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">井场人员侵入</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid var(--border); white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">井场车辆侵入</th>
+                  <!-- 场站场景子项 -->
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">场站火焰检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">场站烟雾检测</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); border-right: 1px solid #e5e7eb; white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">场站人员入侵</th>
+                  <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 90px; background: #f8fafc; font-size: 13px;">场站车辆入侵</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR Agent)</td>
+                  <!-- 管线场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">93.93</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">92.30</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">81.38</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR SFT v2)</td>
+                  <!-- 管线场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: var(--primary-red); border-right: 1px solid var(--border);">Frontier-A1-VL(AR SFT)</td>
+                  <!-- 管线场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; color: #000000;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen2.5-VL-7B</td>
+                  <!-- 管线场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">12.7</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">4.76</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">11.6</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">38</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">16.1</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">23.3</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">60.1</td>
+                  <!-- 场站场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">38</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">16.1</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">23.3</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">60.1</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen2.5-VL-32B</td>
+                  <!-- 管线场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">24.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">47.62</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">18.7</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">50.5</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">16.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">22.4</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">66</td>
+                  <!-- 场站场景数据 -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">50.5</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">16.8</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">22.4</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">66</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">FUDOKI-1.5B</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Cosmos-Reason1-7B</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">BAGEL-7B-MOT</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">InternVL3-9B</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">GLM-4.1V-9B-Thinking</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Gemini-2.5-Pro</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">Qwen-VL-Plus(阿里专供)</td>
+                  <!-- 管线场景数据 (5列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 井场场景数据 (11列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid var(--border);">-</td>
+                  <!-- 场站场景数据 (4列) -->
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap; border-right: 1px solid #e5e7eb;">-</td>
+                  <td style="padding: 12px; text-align: center; white-space: nowrap;">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Energy Scene Charts -->
+          <div style="margin-top: 40px;">
+            <h4 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red); font-size: 20px;">📊 能源场景性能图表</h4>
+            <!-- Radar Chart -->
+            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+              <h5 style="text-align: center; margin: 0 0 20px 0; color: #1f2937; font-size: 16px;">性能雷达图</h5>
+              <div id="energy-radar-chart" style="width: 100%; height: 600px;"></div>
+            </div>
+            <!-- Bar Chart -->
+            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+              <h5 style="text-align: center; margin: 0 0 20px 0; color: #1f2937; font-size: 16px;">各类别平均性能</h5>
+              <div id="energy-bar-chart" style="width: 100%; height: 400px;"></div>
+            </div>
+          </div>
+
+          <!-- Energy BenchMark Insights -->
+          <div style="margin-top: 40px; padding: 24px; background: #f8fafc; border-radius: 12px;">
+            <h4 style="color: var(--primary-red); margin-bottom: 16px; font-size: 18px;">💡 能源场景评测结论</h4>
+            <ul style="padding-left: 20px; line-height: 1.8; color: var(--muted); margin: 0;">
+              <li>Qwen2.5-VL-32B 模型在绝大能源部分场景的性能表现最佳。</li>
+              <li>FUDOKI 1.5B 模型在能源垂域场景的表现效果很差。</li>
+              <li>所有模型在场站分类下的平均准确率明显高于其他两个分类场景。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Separator -->
+        <div style="margin: 60px 0; text-align: center;">
+          <div style="width: 100%; height: 2px; background: linear-gradient(to right, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent); margin: 0 auto;"></div>
+          <div style="margin-top: 40px; color: var(--primary-red); font-size: 24px; font-weight: 600;">Model Inference Speed</div>
+        </div>
+
+        <!-- Model Inference Speed Section -->
+        <div class="card" style="margin-bottom: 30px;">
+          <h2 style="text-align: center; margin: 0 0 40px 0; color: var(--primary-red); font-size: 28px;">⚡ Model Inference Speed Comparison</h2>
+          
+          <!-- Inference Speed Bar Chart -->
+          <div style="text-align: center; margin-bottom: 16px; color: #666; font-size: 14px; font-style: italic;">
+            ⚠️ Lower values indicate better performance (faster inference time)
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <div id="inference-performance-chart" style="width: 100%; height: 500px;"></div>
+          </div>
+
+
+          <!-- Inference Speed Table -->
+          <div style="margin-bottom: 40px;">
+            <h3 style="text-align: center; margin: 0 0 30px 0; color: var(--primary-red);">📊 Per-Sample Inference Time (seconds)</h3>
+            <div style="overflow-x: auto; max-width: 100%; margin: 0 auto;">
+              <table style="min-width: 600px; width: 100%; table-layout: auto; white-space: nowrap; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <thead>
+                  <tr>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 180px; background: #f8fafc;">Model</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">TextVQA</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">MATH-Vision</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">VideoMME</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MMMU</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MathVista</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">MMVet</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 120px; background: #f8fafc;">MMSI-Bench</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">ERQA</th>
+                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--border); white-space: nowrap; min-width: 100px; background: #f8fafc;">VSI-Bench</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">Qwen2.5-VL-7B-Instruct</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">0.47</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">10.86</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">6.48</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">6.68</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">5.79</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">6.84</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.29</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">0.29</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">4.62</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">FUDOKI-1.5B (step 10)</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.25</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.3</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">17.3</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.32</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.29</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.3</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.44</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">1.33</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">14.29</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">FUDOKI-1.5B (step 20)</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.35</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.45</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">19.37</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.24</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.41</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.43</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.58</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">2.46</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">15.48</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">FUDOKI-1.5B (step 30)</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.46</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.59</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">19.77</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.36</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.54</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.57</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.69</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">3.59</td>
+                    <td style="padding: 12px; text-align: center; white-space: nowrap;">17.41</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Model Inference Speed Insights -->
+          <div style="margin-top: 40px; padding: 24px; background: #f8fafc; border-radius: 12px;">
+            <h4 style="color: var(--primary-red); margin-bottom: 16px; font-size: 18px;">💡 Inference Speed Insights</h4>
+            <ul style="padding-left: 20px; line-height: 1.8; color: var(--muted); margin: 0;">
+              <li><strong>Qwen2.5-VL-7B-Instruct</strong> demonstrates exceptional inference speed on most benchmarks, particularly on TextVQA (0.47s) and ERQA (0.29s)</li>
+              <li>FUDOKI-1.5B inference time increases linearly with step count, from 1.25s (step 10) to 3.46s (step 30) on TextVQA</li>
+              <li>Video understanding (VideoMME) and spatial reasoning (VSI-Bench) tasks are notably more computationally intensive</li>
+            </ul>
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+  <script>
+    // ----------------------- ECharts Radar Chart -----------------------
+    const radarChartData = {
+      indicators: [
+        { name: 'MEGA-Bench', max: 70 },
+        { name: 'MVBench', max: 80 },
+        { name: 'TextVQA', max: 90 },
+        { name: 'VCR-EN-Easy', max: 100 },
+        { name: 'MATH-Vision', max: 50 },
+        { name: 'MMBench', max: 100 },
+        { name: 'VideoMME', max: 90 },
+        { name: 'ChartQA', max: 90 },
+        { name: 'DocVQA', max: 100 },
+        { name: 'OCRBench', max: 90 },
+        { name: 'MMMU', max: 85 },
+        { name: 'MathVista', max: 85 },
+        { name: 'MMVet', max: 80 },
+        { name: 'MMSI-Bench', max: 40 },
+        { name: 'VSI-Bench', max: 50 },
+        { name: 'ERQA', max: 65 }
+      ],
+      series: [
+        {
+          name: 'Qwen2.5-VL-7B',
+          data: [36.8, 69.6, 79.83, 87.57, 25.8, 83, 61.55, 70.2, 94.98, 44.1, 58.6, 65, 73.07, 28.1, 22.77, 42.5]
+        },
+        {
+          name: 'Qwen2.5-VL-32B',
+          data: [45, 70, 85.24, 89.35, 39.2, 84.6, 75, 86.16, 96, 51, 70, 73, 75.23, 28.9, 24.5, 42.25]
+        },
+        {
+          name: 'FUDOKI-1.5B (step 128)',
+          data: [25, 50, 56, 60, 18, 70, 54, 64, 80, 30, 34.3, 45, 38, 31, 24.5, 33]
+        },
+        {
+          name: 'BAGEL-7B-MOT',
+          data: [34, 69, 79, 86, 25, 79.2, 65, 76, 92, 46, 43.2, 63.4, 48.2, 30.6, 26.38, 43.75]
+        },
+        {
+          name: 'InternVL3-9B',
+          data: [38, 74.3, 79.4, 94.2, 27.6, 86.5, 68.9, 86.2, 93.6, 42, 65.6, 75.2, 76.2, 29, 25, 50]
+        },
+        {
+          name: 'GLM-4.1V-9B-Thking',
+          data: [40, 75, 83, 94, 28, 85.2, 73.6, 87, 95, 45.8, 68, 45, 76, 30, 14.06, 40.5]
+        },
+        {
+          name: 'Cosmos-Reason1-7B',
+          data: [37, 67.22, 84.6, 83.44, 36.67, 80.06, 65, 75.8, 93.95, 45.1, 45.33, 65.2, 62, 15.9, 35.7, 38.8]
+        },
+        {
+          name: 'Gemini-2.5-Pro',
+          data: [64.66, 72, 73.4, 86.2, 25.3, 94, 51, 76.88, 92.5, 56.2, 81.7, 84.6, 75.6, 36.9, 44.66, 61.5]
+        },
+        {
+          name: 'Frontier-A1-VL(AR SFT)',
+          data: [27.5, 66.68, 80.79, 94.66, 18.095, 85.2, 51.96, 75, 81.77, 43.3, 43, 67.6, 62.80, 26, 36.52, 36.25]
+        },
+        {
+          name: 'Frontier-A1-VL(AR SFT v2)',
+          data: [33, 66.42, 81.82, 91.93, 19.26, 81.95, 74.6, 67.4, 43.3, 44.8, 46.8, 63.47, 61.28, 29, 48.61, 39.75]
+        }
+      ]
+    };
+
+    // Initialize radar chart
+    window.addEventListener('DOMContentLoaded', function() {
+      const radarElement = document.getElementById('radar-chart');
+      if (radarElement && typeof echarts !== 'undefined') {
+        const radarChart = echarts.init(radarElement);
+        
+        const radarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: radarChartData.series.map(s => s.name),
+            right: 60,
+            top: 'middle',
+            orient: 'vertical',
+            itemGap: 15,
+            textStyle: {
+              color: '#1f2937',
+              fontSize: 12
+            }
+          },
+          radar: {
+            indicator: radarChartData.indicators,
+            radius: '85%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937'
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: 'Model Performance',
+            type: 'radar',
+            data: radarChartData.series.map(series => ({
+              value: series.data,
+              name: series.name
+            })),
+            areaStyle: {
+              opacity: 0.3
+            },
+            lineStyle: {
+              width: 2
+            },
+            itemStyle: {
+              color: function(params) {
+                const name = params.name;
+                if (name.includes('Qwen2.5-VL-7B')) return '#3b82f6';
+                if (name.includes('Qwen2.5-VL-32B')) return '#dc2626';
+                if (name.includes('FUDOKI-1.5B (step 128)')) return '#8B0000';
+                if (name.includes('BAGEL-7B-MOT')) return '#7c3aed';
+                if (name.includes('InternVL3-9B')) return '#f59e0b';
+                if (name.includes('GLM-4.1V-9B-Thking')) return '#06b6d4';
+                if (name.includes('Cosmos-Reason1-7B')) return '#8b5cf6';
+                if (name.includes('Gemini-2.5-Pro')) return '#ec4899';
+                if (name.includes('Frontier-A1-VL(AR SFT)')) return '#f97316';
+                if (name.includes('Frontier-A1-VL(AR SFT v2)')) return '#0d9488';
+                return '#94a3b8';
+              }
+            }
+      }]
+    };
+    
+    radarChart.setOption(radarOption);
+    
+        // Handle window resize
+        window.addEventListener('resize', () => {
+      radarChart.resize();
+    });
+      }
+
+      // ----------------------- Traffic BenchMark Pie Charts -----------------------
+      // 计算各场景的平均分
+      const trafficSceneData = {
+        'Qwen2.5-VL-7B': {
+          traffic: [8.76, 0, 0, 0, 70.29, 31.43, 27.98, 14.19, 40.00, 23.67, 28.23, 76.15, 10.53], // 更新后的交管场景数据
+          bridge: [11.47, 3.33, 28.61, 21.92], // 更新后的桥梁场景数据
+          road: [31.49, 19.96, 10.75, 77.23, 30.53, 0] // 更新后的路面/山体异常场景数据
+        },
+        'Qwen2.5-VL-32B': {
+          traffic: [24, 7.7, 75, 15.3, 75.6, 39.5, 54.9, 11, 43.8, 28.5, 30, 43.8, 81.3, 75.6, 14.2], // 增加占道施工护栏和路边护栏
+          bridge: [9.6, 45.5, 29.2, 29.2, 9.6, 8.4],
+          road: [18, 7, 17.5, 60.8, 1.4, 40, 40]
+        }
+      };
+
+      // 计算平均分
+      function calculateAverage(arr) {
+        return arr.reduce((a, b) => a + b, 0) / arr.length;
+      }
+
+      // Traffic Scene Bar Chart
+      const trafficBarElement = document.getElementById('traffic-bar-chart');
+      if (trafficBarElement && typeof echarts !== 'undefined') {
+        const trafficBarChart = echarts.init(trafficBarElement);
+        
+        // Calculate average scores for each category
+        const trafficData = {
+          'Qwen2.5-VL-7B': {
+            traffic: [8.76, 0, 0, 0, 70.29, 31.43, 27.98, 14.19, 40.00, 23.67, 28.23, 76.15, 10.53],
+            bridge: [11.47, 3.33, 28.61, 21.92],
+            road: [31.49, 19.96, 10.75, 77.23, 30.53, 0]
+          },
+          'Qwen2.5-VL-32B': {
+            traffic: [24, 7.7, 75, 15.3, 75.6, 39.5, 54.9, 11, 43.8, 28.5, 30, 43.8, 81.3, 75.6, 14.2],
+            bridge: [9.6, 45.5, 29.2, 29.2, 9.6, 8.4],
+            road: [18, 7, 17.5, 60.8, 1.4, 40, 40]
+          },
+          'FUDOKI-1.5B': {
+            traffic: new Array(15).fill(0),
+            bridge: new Array(6).fill(0),
+            road: new Array(7).fill(0)
+          },
+          'Cosmos-Reason1-7B': {
+            traffic: [7.38, 5.89, 0, 6.24, 68.12, 24.12, 24.40, 6.09, 28.06, 22.79, 23.31, 0, 11.57, 9.70],
+            bridge: [9.57, 5.00, 30.83, 12.13],
+            road: [30.20, 6.38, 41.95, 63.46, 31.23, 0.00]
+          }
+        };
+        
+        // Calculate averages
+        const models = ['Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B', 'Cosmos-Reason1-7B'];
+        const trafficAvg = models.map(model => calculateAverage(trafficData[model].traffic));
+        const bridgeAvg = models.map(model => calculateAverage(trafficData[model].bridge));
+        const roadAvg = models.map(model => calculateAverage(trafficData[model].road));
+        
+        const trafficBarOption = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            formatter: function(params) {
+              let result = params[0].name + '<br/>';
+              params.forEach(item => {
+                result += item.marker + ' ' + item.seriesName + ': ' + item.value.toFixed(2) + '<br/>';
+              });
+              return result;
+            }
+          },
+          legend: {
+            data: ['交通', '桥梁', '路面'],
+            top: 'top'
+          },
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: models,
+            axisLabel: {
+              interval: 0,
+              rotate: 0
+            }
+          },
+          yAxis: {
+            type: 'value',
+            name: '平均分数',
+            nameLocation: 'middle',
+            nameGap: 50,
+            nameTextStyle: {
+              fontSize: 14,
+              fontWeight: 'bold'
+            },
+            max: 50
+          },
+          series: [
+            {
+              name: '交通',
+              type: 'bar',
+              data: trafficAvg,
+              itemStyle: { color: '#5470c6' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            },
+            {
+              name: '桥梁',
+              type: 'bar',
+              data: bridgeAvg,
+              itemStyle: { color: '#91cc75' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            },
+            {
+              name: '路面',
+              type: 'bar',
+              data: roadAvg,
+              itemStyle: { color: '#ee6666' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            }
+          ]
+        };
+        
+        trafficBarChart.setOption(trafficBarOption);
+        window.addEventListener('resize', () => trafficBarChart.resize());
+      }
+
+      // 交通场景雷达图
+      const trafficRadarElement = document.getElementById('traffic-radar-chart');
+      if (trafficRadarElement && typeof echarts !== 'undefined') {
+        const trafficRadarChart = echarts.init(trafficRadarElement);
+        
+        // 准备雷达图指标
+        const trafficIndicators = [
+          { name: '交通违停', max: 100 },
+          { name: '占用应急车道', max: 100 },
+          { name: '道路拥堵', max: 100 },
+          { name: '逆行', max: 100 },
+          { name: '占道施工', max: 100 },
+          { name: '非机动车闯入', max: 100 },
+          { name: '护栏损坏', max: 100 },
+          { name: '人员检测', max: 100 },
+          { name: '机动车检测', max: 100 },
+          { name: '工程车检测', max: 100 },
+          { name: '船只检测', max: 100 },
+          { name: '车牌检测', max: 100 },
+          { name: '路边护栏', max: 100 },
+          { name: '桥梁损伤', max: 100 },
+          { name: '桥梁梁体', max: 100 },
+          { name: '桥梁护栏', max: 100 },
+          { name: '桥梁桥墩', max: 100 },
+          { name: '路面抛洒物', max: 100 },
+          { name: '路面裂缝', max: 100 },
+          { name: '路面坑洼', max: 100 },
+          { name: '路面积水', max: 100 },
+          { name: '山体滑坡', max: 100 },
+          { name: '雪糕筒', max: 100 },
+        ];
+
+        // 准备数据 (根据表格中的实际交通场景数据更新)
+        const trafficRadarData = [
+          {
+            name: 'Frontier-A1-VL(AR Agent)',
+            value: [72.60, 72.60, 84.6, 91.17, 88.17, 70.76, 86.01, 73.20, 91.32, 64.43, 89.21, 97.50, 79.21, 
+                    83.10, 58.6515, 56.5816, 49.6241, 89.36, 87.82, 92.30, 89.94, 85.79, 72.05]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v3)',
+            value: [24.21, 38.17, 84.6, 34.99, 78.26, 26.68, 26.19, 9.83, 55.19, 32.60, 33.35, 89.66, 20.48, 
+                    10.62, 1.67, 24.28, 12.67, 64.60, 53.90, 60.73, 82.05, 42.81, 0.27]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v2)',
+            value: [24.41, 9.29, 69.2, 30.98, 82.61, 58.79, 13.10, 8.19, 44.37, 17.34, 26.12, 13.30, 12.20, 
+                    18.18, 3.89, 23.06, 17.40, 61.75, 39.30, 21.26, 79.64, 62.46, 0.00]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT)',
+            value: [2.43, 1.79, 69.2, 12.68, 71.74, 16.30, 28.57, 3.79, 15.00, 10.65, 14.50, 1.32, 7.89, 
+                    7.54, 3.33, 20.83, 10.67, 8.57, 3.70, 13.42, 55.46, 22.11, 0.00]
+          },
+          {
+            name: 'Qwen2.5-VL-7B',
+            value: [8.76, 0, 76, 0, 70.29, 31.43, 27.98, 14.19, 40.00, 23.67, 28.23, 76.15, 10.53, 
+                    11.47, 3.33, 28.61, 21.92, 31.49, 19.96, 10.75, 77.23, 30.53, 0]
+          },
+          {
+            name: 'Qwen2.5-VL-32B',
+            value: [24, 7.7, 75, 15.3, 75.6, 39.5, 54.9, 11, 43.8, 30, 43.8, 81.3, 14.2, 
+                    0, 9.6, 45.5, 75.6, 18, 7, 17.5, 60.8, 40, 1.4]
+          },
+          {
+            name: 'FUDOKI-1.5B',
+            value: new Array(23).fill(0) // 所有值为0
+          },
+          {
+            name: 'Cosmos-Reason1-7B',
+            value: [7.38, 5.89, 69.2, 6.24, 68.12, 24.12, 24.40, 6.09, 28.06, 23.31, 23.31, 11.57, 9.70, 
+                    9.57, 5.00, 30.83, 12.13, 30.20, 6.38, 41.95, 63.46, 31.23, 0.00]
+          },
+          {
+            name: 'BAGEL-7B-MOT',
+            value: [0.00, 0.00, 61.54, 0.00, 5.80, 0.00, 19.64, 0.00, 1.50, 1.00, 0.00, 0.00, 0.00,
+                    3.53, 0.00, 1.67, 1.67, 1.14, 0.00, 0.86, 30.23, 3.16, 0.00]
+          },
+          {
+            name: 'InternVL3-9B',
+            value: new Array(23).fill(0) // 暂无数据
+          },
+          {
+            name: 'GLM-4.1V-9B-Thinking',
+            value: new Array(23).fill(0) // 暂无数据
+          },
+          {
+            name: 'Gemini-2.5-Pro',
+            value: [0.00, 0.00, 0.00, 0.00, 42.03, 14.29, 0.00, 0.04, 0.71, 2.50, 0.00, 0.00, 3.17, 3.27, 0.00, 0.00, 0.00, 0.00, 6.17, 3.52, 28.56, 26.32, 0.00]
+          },
+          {
+            name: 'Qwen-VL-Plus(阿里专供)',
+            value: [29.97, 8.05, 30.77, 11.69, 76.81, 6.98, 27.98, 28.82, 60.92, 28.07, 72.93, 95.97, 37.39, 11.81, 4.44, 40.61, 46.21, 37.62, 24.77, 13.67, 80.43, 54.04, 4.01]
+          }
+        ];
+
+        const trafficRadarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: ['Frontier-A1-VL(AR Agent)', 'Frontier-A1-VL(AR SFT v3)', 'Frontier-A1-VL(AR SFT v2)', 'Frontier-A1-VL(AR SFT)', 'Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B', 
+                   'Cosmos-Reason1-7B', 'BAGEL-7B-MOT', 'InternVL3-9B', 'GLM-4.1V-9B-Thinking', 'Gemini-2.5-Pro', 'Qwen-VL-Plus(阿里专供)'],
+            orient: 'vertical',
+            right: '2%',
+            top: 'center',
+            type: 'scroll',
+            itemGap: 12
+          },
+          radar: {
+            indicator: trafficIndicators,
+            radius: '80%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937',
+              fontSize: 12
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: '交通场景性能',
+            type: 'radar',
+            data: trafficRadarData.map((item, index) => ({
+              value: item.value,
+              name: item.name,
+              areaStyle: {
+                opacity: 0.2
+              },
+              lineStyle: {
+                width: 2
+              },
+              itemStyle: {
+                color: [
+                  '#B22222', // Frontier-A1-VL(AR SFT v3) - 火砖红
+                  '#9370DB', // Frontier-A1-VL(AR SFT v2) - 中紫色
+                  '#4169E1', // Frontier-A1-VL(AR SFT) - 皇家蓝
+                  '#708090', // Qwen2.5-VL-7B - 石板灰
+                  '#FF8C00', // Qwen2.5-VL-32B - 深橙色
+                  '#DC143C', // FUDOKI-1.5B - 深红色
+                  '#8A2BE2', // Cosmos-Reason1-7B - 蓝紫色
+                  '#1E90FF', // BAGEL-7B-MOT - 道奇蓝
+                  '#A9A9A9', // InternVL3-9B - 暗灰色
+                  '#FF6347', // GLM-4.1V-9B-Thinking - 番茄橙
+                  '#CD5C5C', // Gemini-2.5-Pro - 印度红
+                  '#BA55D3'  // Qwen-VL-Plus(阿里专供) - 中兰花紫
+                ][index]
+              }
+            }))
+          }]
+        };
+
+        trafficRadarChart.setOption(trafficRadarOption);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          trafficRadarChart.resize();
+        });
+      }
+
+      // ----------------------- Energy BenchMark Pie Charts -----------------------
+      // 能源场景数据
+      const energySceneData = {
+        'Qwen2.5-VL-7B': {
+          pipeline: [12.7], // 只有管线漏油有数据
+          wellsite: [4.76, 11.6, 38, 16.1, 23.3, 60.1], // 井场驴头抽停到井场车辆侵入
+          station: [38, 16.1, 23.3, 60.1] // 场站火焰检测到场站车辆入侵
+        },
+        'Qwen2.5-VL-32B': {
+          pipeline: [24.8], // 只有管线漏油有数据
+          wellsite: [47.62, 18.7, 50.5, 16.8, 22.4, 66], // 井场驴头抽停到井场车辆侵入
+          station: [50.5, 16.8, 22.4, 66] // 场站火焰检测到场站车辆入侵
+        }
+      };
+
+      // Energy Scene Bar Chart
+      const energyBarElement = document.getElementById('energy-bar-chart');
+      if (energyBarElement && typeof echarts !== 'undefined') {
+        const energyBarChart = echarts.init(energyBarElement);
+        
+        // Calculate average scores for each category
+        const energyData = {
+          'Qwen2.5-VL-7B': {
+            pipeline: [12.7, 0, 0, 0, 0], // 只有管线漏油有数据，其他为0
+            wellsite: [0, 0, 0, 0, 0, 4.76, 11.6, 38, 16.1, 23.3, 60.1],
+            station: [38, 16.1, 23.3, 60.1]
+          },
+          'Qwen2.5-VL-32B': {
+            pipeline: [24.8, 0, 0, 0, 0], // 只有管线漏油有数据，其他为0
+            wellsite: [0, 0, 0, 0, 0, 47.62, 18.7, 50.5, 16.8, 22.4, 66],
+            station: [50.5, 16.8, 22.4, 66]
+          },
+          'FUDOKI-1.5B': {
+            pipeline: new Array(5).fill(0),
+            wellsite: new Array(11).fill(0),
+            station: new Array(4).fill(0)
+          }
+        };
+        
+        // Calculate averages
+        const models = ['Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B'];
+        const pipelineAvg = models.map(model => calculateAverage(energyData[model].pipeline));
+        const wellsiteAvg = models.map(model => calculateAverage(energyData[model].wellsite));
+        const stationAvg = models.map(model => calculateAverage(energyData[model].station));
+        
+        const energyBarOption = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            formatter: function(params) {
+              let result = params[0].name + '<br/>';
+              params.forEach(item => {
+                result += item.marker + ' ' + item.seriesName + ': ' + item.value.toFixed(2) + '<br/>';
+              });
+              return result;
+            }
+          },
+          legend: {
+            data: ['管线', '井场', '场站'],
+            top: 'top'
+          },
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: models,
+            axisLabel: {
+              interval: 0,
+              rotate: 0
+            }
+          },
+          yAxis: {
+            type: 'value',
+            name: '平均分数',
+            nameLocation: 'middle',
+            nameGap: 50,
+            nameTextStyle: {
+              fontSize: 14,
+              fontWeight: 'bold'
+            },
+            max: 40
+          },
+          series: [
+            {
+              name: '管线',
+              type: 'bar',
+              data: pipelineAvg,
+              itemStyle: { color: '#5470c6' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            },
+            {
+              name: '井场',
+              type: 'bar',
+              data: wellsiteAvg,
+              itemStyle: { color: '#91cc75' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            },
+            {
+              name: '场站',
+              type: 'bar',
+              data: stationAvg,
+              itemStyle: { color: '#ee6666' },
+              label: {
+                show: true,
+                position: 'top',
+                formatter: function(params) {
+                  return params.value.toFixed(2);
+                }
+              }
+            }
+          ]
+        };
+        
+        energyBarChart.setOption(energyBarOption);
+        window.addEventListener('resize', () => energyBarChart.resize());
+      }
+
+      // 能源场景雷达图
+      const energyRadarElement = document.getElementById('energy-radar-chart');
+      if (energyRadarElement && typeof echarts !== 'undefined') {
+        const energyRadarChart = echarts.init(energyRadarElement);
+        
+        // 准备雷达图指标
+        const energyIndicators = [
+          { name: '管线漏油', max: 100 },
+          { name: '管道裸露', max: 80 },
+          { name: '盗油', max: 80 },
+          { name: '管线占压', max: 80 },
+          { name: '管道塌方', max: 80 },
+          { name: '磕头机', max: 80 },
+          { name: '驴头', max: 80 },
+          { name: '磕头机轴承', max: 80 },
+          { name: '油箱', max: 80 },
+          { name: '储油罐', max: 80 },
+          { name: '井场驴头抽停', max: 100 },
+          { name: '井场漏油', max: 100 },
+          { name: '井场火焰', max: 80 },
+          { name: '井场烟雾', max: 80 },
+          { name: '井场人员侵入', max: 80 },
+          { name: '井场车辆侵入', max: 80 },
+          { name: '场站火焰检测', max: 80 },
+          { name: '场站烟雾检测', max: 80 },
+          { name: '场站人员入侵', max: 80 },
+          { name: '场站车辆入侵', max: 80 }
+        ];
+
+        // 准备数据
+        const energyRadarData = [
+          {
+            name: 'Frontier-A1-VL(AR Agent)',
+            value: [93.93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92.30, 81.38, 0, 0, 0, 0, 0, 0, 0, 0] // 管线漏油: 93.93, 井场驴头抽停: 92.30, 井场漏油: 81.38
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v2)',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT)',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Qwen2.5-VL-7B',
+            value: [12.7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.76, 11.6, 38, 16.1, 23.3, 60.1, 38, 16.1, 23.3, 60.1]
+          },
+          {
+            name: 'Qwen2.5-VL-32B',
+            value: [24.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 47.62, 18.7, 50.5, 16.8, 22.4, 66, 50.5, 16.8, 22.4, 66]
+          },
+          {
+            name: 'FUDOKI-1.5B',
+            value: new Array(20).fill(0) // 所有值为0
+          },
+          {
+            name: 'Cosmos-Reason1-7B',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'BAGEL-7B-MOT',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'InternVL3-9B',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'GLM-4.1V-9B-Thinking',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Gemini-2.5-Pro',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Qwen-VL-Plus(阿里专供)',
+            value: new Array(20).fill(0) // 暂无数据
+          }
+        ];
+
+        const energyRadarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: ['Frontier-A1-VL(AR Agent)', 'Frontier-A1-VL(AR SFT v2)', 'Frontier-A1-VL(AR SFT)', 'Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B', 
+                   'Cosmos-Reason1-7B', 'BAGEL-7B-MOT', 'InternVL3-9B', 'GLM-4.1V-9B-Thinking', 'Gemini-2.5-Pro', 'Qwen-VL-Plus(阿里专供)'],
+            orient: 'vertical',
+            right: '2%',
+            top: 'center',
+            type: 'scroll',
+            itemGap: 12
+          },
+          radar: {
+            indicator: energyIndicators,
+            radius: '80%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937',
+              fontSize: 11
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: '能源场景性能',
+            type: 'radar',
+            data: energyRadarData.map((item, index) => ({
+              value: item.value,
+              name: item.name,
+              areaStyle: {
+                opacity: 0.2
+              },
+              lineStyle: {
+                width: 2
+              },
+              itemStyle: {
+                color: [
+                  '#DC143C', // Frontier-A1-VL(AR Agent) - 深红色
+                  '#8B008B', // Frontier-A1-VL(AR SFT v2) - 深洋红紫
+                  '#4682B4', // Frontier-A1-VL(AR SFT) - 钢蓝色
+                  '#696969', // Qwen2.5-VL-7B - 暗灰色
+                  '#FF7F50', // Qwen2.5-VL-32B - 珊瑚橙
+                  '#B22222', // FUDOKI-1.5B - 火砖红
+                  '#9932CC', // Cosmos-Reason1-7B - 深兰花紫
+                  '#1E90FF', // BAGEL-7B-MOT - 道奇蓝
+                  '#808080', // InternVL3-9B - 灰色
+                  '#FF8C00', // GLM-4.1V-9B-Thinking - 深橙色
+                  '#CD5C5C', // Gemini-2.5-Pro - 印度红
+                  '#9370DB'  // Qwen-VL-Plus(阿里专供) - 中紫色
+                ][index]
+              }
+            }))
+          }]
+        };
+
+        energyRadarChart.setOption(energyRadarOption);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          energyRadarChart.resize();
+        });
+      }
+
+      // ----------------------- Inference Speed Bar Chart -----------------------
+      const inferenceElement = document.getElementById('inference-performance-chart');
+      if (inferenceElement && typeof echarts !== 'undefined') {
+        const inferenceChart = echarts.init(inferenceElement);
+        
+        const inferenceData = {
+          models: ['Qwen2.5-VL-7B-Instruct', 'FUDOKI-1.5B (step 10)', 'FUDOKI-1.5B (step 20)', 'FUDOKI-1.5B (step 30)'],
+          textVQA: [0.47, 1.25, 2.35, 3.46],
+          mathVision: [10.86, 1.3, 2.45, 3.59],
+          videoMME: [6.48, 17.3, 19.37, 19.77],
+          mmmu: [6.68, 1.32, 2.24, 3.36],
+          mathVista: [5.79, 1.29, 2.41, 3.54],
+          mmVet: [6.84, 1.3, 2.43, 3.57],
+          mmsiBench: [1.29, 1.44, 2.58, 3.69],
+          erqa: [0.29, 1.33, 2.46, 3.59],
+          vsiBench: [4.62, 14.29, 15.48, 17.41]
+        };
+        
+        const inferenceOption = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            formatter: function(params) {
+              let result = params[0].name + '<br/>';
+              params.forEach(item => {
+                result += item.marker + ' ' + item.seriesName + ': ' + item.value + 's<br/>';
+              });
+              return result;
+            }
+          },
+          legend: {
+            data: inferenceData.models,
+            top: 'top',
+            itemGap: 15,
+            textStyle: {
+              fontSize: 11
+            }
+          },
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: ['TextVQA', 'MATH-Vision', 'VideoMME', 'MMMU', 'MathVista', 'MMVet', 'MMSI-Bench', 'ERQA', 'VSI-Bench'],
+            axisLabel: {
+              interval: 0,
+              fontSize: 11,
+              rotate: 30
+            }
+          },
+          yAxis: {
+            type: 'value',
+            name: 'Per-Sample Inference Time (seconds)',
+            nameLocation: 'middle',
+            nameGap: 50,
+            nameTextStyle: {
+              fontSize: 14,
+              fontWeight: 'bold'
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: '#333'
+              }
+            }
+          },
+          series: [
+            {
+              name: 'Qwen2.5-VL-7B-Instruct',
+              type: 'bar',
+              data: [0.47, 10.86, 6.48, 6.68, 5.79, 6.84, 1.29, 0.29, 4.62],
+              itemStyle: { color: '#e74c3c' },
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            },
+            {
+              name: 'FUDOKI-1.5B (step 10)',
+              type: 'bar',
+              data: [1.25, 1.3, 17.3, 1.32, 1.29, 1.3, 1.44, 1.33, 14.29],
+              itemStyle: { color: '#3498db' }
+            },
+            {
+              name: 'FUDOKI-1.5B (step 20)',
+              type: 'bar',
+              data: [2.35, 2.45, 19.37, 2.24, 2.41, 2.43, 2.58, 2.46, 15.48],
+              itemStyle: { color: '#f39c12' }
+            },
+            {
+              name: 'FUDOKI-1.5B (step 30)',
+              type: 'bar',
+              data: [3.46, 3.59, 19.77, 3.36, 3.54, 3.57, 3.69, 3.59, 17.41],
+              itemStyle: { color: '#9b59b6' }
+            }
+          ]
+        };
+        
+        inferenceChart.setOption(inferenceOption);
+        window.addEventListener('resize', () => inferenceChart.resize());
+      }
+    });
+  </script>
+</body>
+</html>

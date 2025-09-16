@@ -1,0 +1,202 @@
+{
+  "0": [
+    {
+      "ability": "General Perception: Detection / Grounding",
+      "image_path": "images/image_1145.jpg",
+      "question": "Please determine whether the following two situations exist:\n1. fire (open flame, flame)\n2. smoke (smoke, thick smoke)\nIf available, output its bbox coordinates and labels in JSON array format; if not, output an empty array.\nFormat example:\n```json\n[{\"bbox\":\"100,200,300,400\",\"label\":\"fire\"}, {\"bbox\":\"10,20,30,40\",\"label\":\"smoke\"}]\n```",
+      "answer": "[{\"bbox\":\"24,489,137,563\",\"label\":\"fire\"},{\"bbox\":\"18,357,151,492\",\"label\":\"smoke\"},{\"bbox\":\"960,203,1021,381\",\"label\":\"smoke\"},{\"bbox\":\"1,2,1022,128\",\"label\":\"smoke\"}]"
+    }
+  ],
+  "1": [
+    {
+      "ability": "General Perception: Counting",
+      "videos_path": "videos/video_11123.mp4",
+      "question": "How many red objects are moving?",
+      "answer": "2"
+    }
+  ],
+  "2": [
+    {
+      "ability": "General Perception: Pointing / REC",
+      "image_path": "images/sample_000004_img_00.png",
+      "question": "There are four points marked with colors, which one is on the upper surface of the lower part of the handrail. Choices: \nA. red dot. \nB. pink dot. \nC. green dot. \nD. yellow dot.",
+      "answer": "D"
+    }
+  ],
+  "4": [
+    {
+      "ability": "General Perception: Classification",
+      "image_path": "images/6.jpg",
+      "question": "What patterns can be seen in group A?",
+      "answer": "Group A includes cats with a mix of patterns, such as stripes, spots, and one plain light-colored cat."
+    }
+  ],
+  "5": [
+    {
+      "ability": "General Perception: OCR",
+      "image_path": "images/ocrbench_112.jpg",
+      "question": "What text is shown in this image?",
+      "answer": "WOODZILLA"
+    }
+  ],
+  "6": [
+    {
+      "ability": "General Perception: Captioning",
+      "image_path": "images/7.png",
+      "question": "Describe the image.",
+      "answer": "A white Samsung smartphone shows the time is 11:19 top part of samsung phone at 11:19 on December 30A close up of the top half of a Samsung cell phone. A samsung brand phone shows the current time is 11:19.The top half of a Samsung cellphone showing the time, dateand weather conditions."
+    }
+  ],
+  "7": [
+    {
+      "ability": "General Perception: Image eval",
+      "image_path": "images/image_eval.gif",
+      "question": "A 2D animated scene of a kindergarten teacher guiding excited children through a colorful art project, their hands busy with paints and smiles bright, infusing the classroom with joyful creativity. \nWhich video fits the description better?",
+      "answer": "The left image."
+    }
+  ],
+  "8": [
+    {
+      "ability": "General Perception: Knowledge Reasoning",
+      "image_path": "images/dev_Biology_2.png",
+      "question": "In the Acetabularia grafting experiment, suppose the nuclei were located in the stalks instead of the rhizoids. For graft A, what type of cap would you expect to form?\nOptions:\nA. Cap of Acetabularia mediterranea\nB. Cap of Acetabularia crenulata\nC. A hybrid cap of both species\nD. No cap would form",
+      "answer": "B"
+    }
+  ],
+  "9": [
+    {
+      "ability": "Spatial: Multi-view corresponding",
+      "image_path": "images/mutiview.png",
+      "question": "Question:Where was the black door relative to my position when I took the second photo? \nOptions:\nA: Behind me \nB: To my left \nC: In front of me \nD: To my right",
+      "answer": "B"
+    }
+  ],
+  "10": [
+    {
+      "ability": "Spatial: Environment",
+      "videos_path": "videos/Top010_04755.mp4",
+      "question": "What's the right option for how the scenes in the video change?",
+      "answer": "From the server room to the control center."
+    }
+  ],
+  "12": [
+    {
+      "ability": "Spatial: Affordance",
+      "image_path": "images/sample_000044_img_00.png",
+      "question": "Now that you want to turn on the hot water tap, which tap handle should you turn? Point to the dot of the corresponding color.",
+      "answer": "Based on the image you provided, which shows a bathroom sink with two tap handles, the handle for hot water is indicated by a red dot. Specifically, the right-hand handle has a clear red dot below it (as seen in the mirror reflection as well, though the color might appear slightly different due to lighting). According to the common plumbing convention of 'red for hot, blue for cold', you should turn the right handle to get hot water."
+    }
+  ],
+  "13": [
+    {
+      "ability": "Spatial: Camera",
+      "image_path": "images/camera.png",
+      "question": "Question:In which direction is the shooting location of the second photo relative to that of the first photo? \nOptions:\nA: Left \nB: Right \nC: Front \nD: Back",
+      "answer": "C"
+    }
+  ],
+  "14": [
+    {
+      "ability": "Spatial: Relationship",
+      "image_path": "images/relationship.png",
+      "question": "Question:Compare the heights of the clothes hangers in Figure 1 and Figure 2. Which one is higher? \nOptions:\nA: The height of the clothes hanger in Figure 2 is higher \nB: The height of the clothes hanger in Figure 1 is higher \nC: Sometimes the height of the clothes hanger in Figure 1 is higher, and sometimes the height of the clothes hanger in Figure 2 is higher \nD: Their heights are the same",
+      "answer": "A"
+    }
+  ],
+  "15": [
+    {
+      "ability": "Spatial: Measurement",
+      "image_path": "images/measument.png",
+      "question": "Question:Which one is narrower in width, the white appliances in Figure 1 or the white furniture in Figure 2?\nOptions:\nA: Sometimes the one in Figure 1 is wider, sometimes the one in Figure 2 is wider \nB: The one in Figure 2 \nC: The widths are the same \nD: The one in Figure 1",
+      "answer": "B"
+    }
+  ],
+  "17": [
+    {
+      "ability": "Temporal: Action / Event",
+      "videos_path": "videos/video_7958.mp4",
+      "question": "What event is about to occur in the video?",
+      "answer": "The person is about to launch the object on the slanted plane."
+    }
+  ],
+  "18": [
+    {
+      "ability": "Temporal: Trajectory reasoning",
+      "image_path": "images/sample_000029_img_00.png",
+      "question": "Based on the current positions and movements shown in the image, predict the trajectory or path of the moving objects.",
+      "answer": "The object will follow a predictable path based on the observed motion pattern and physical constraints."
+    }
+  ],
+  "19": [
+    {
+      "ability": "Temporal: Future / Past reasoning",
+      "videos_path": "videos/N1cdUjctpG8.mp4",
+      "question": "Which of the following reasons motivated the archaeologists to excavate the tomb?\nOptions: \nA. Because it's from Ming Dynasty and of specific archaeological significance. \nB. Because a new railway line will be built nearby. \nC. Because there were treasures inside the tomb. \nD. Highway realignment.",
+      "answer": "D"
+    }
+  ],
+  "20": [
+    {
+      "ability": "Temporal: Causality",
+      "videos_path": "videos/video_11363.mp4",
+      "question": "Which of the following will happen if the cylinder is removed?",
+      "answer": "The cyan rubber cube collides with the sphere"
+    }
+  ],
+  "21": [
+    {
+      "ability": "Intuitive Physics: Electromagnetism",
+      "image_path": "images/dev_Physics_3.png",
+      "question": "A proton traveling with speed v enters a uniform electric field of magnitude E, directed parallel to the plane of the page, as shown in the figure. There is also a magnetic force on the proton that is in the direction opposite to that of the electric force. If e represents the magnitude of the proton charge, what minimum magnitude of the magnetic field could balance the electric force on the proton?",
+      "answer": "E/V"
+    }
+  ],
+  "22": [
+    {
+      "ability": "Intuitive Physics: Thermodynamics",
+      "image_path": "images/thermodynamics.jpg",
+      "question": "An ideal gas of a certain mass undergoes a series of changes, as shown in the figure. Which of the following statements is correct? \nA.a→b process, the volume of Gas 2 increases, absorbing heat from the surroundings \nB.b→c, the gas volume increases and absorbs heat from the outside \nC.c→a process, the gas volume remains constant and heat is released to the outside \nD.c→a, the internal energy of the gas increases and it releases heat to the outside.",
+      "answer": "A"
+    }
+  ],
+  "23": [
+    {
+      "ability": "Intuitive Physics: Anti-Physics",
+      "image_path": "images/anti_pyh.jpg",
+      "question": "The above three images show the motion trajectory of the first half of the ball. May I ask if the motion trajectory of the second half of the ball cannot be the motion trajectory described by A or B? ",
+      "answer": "B"
+    }
+  ],
+  "24": [
+    {
+      "ability": "Embodied Reasoning: Mechanics",
+      "image_path": "images/dev_Physics_1.png",
+      "question": "An object shown in the accompanying figure moves in uniform circular motion. Which arrow best depicts the net force acting on the object at the instant shown?",
+      "answer": "B"
+    }
+  ],
+  "25": [
+    {
+      "ability": "Embodied Reasoning: Attributes",
+      "videos_path": "videos/24i4ncHuf6A.mp4",
+      "question": "Which of the following options is incorrect regarding the events in Sarajevo depicted in the video?\nOptions: \nA. It was organized by the Black Hand in Serbia. \nB. Ferdinand was sitting on the left side of the car. \nC. Ferdinand was wearing a white hat. \nD. The killer was wearing black suit.",
+      "answer": "C"
+    }
+  ],
+  "26": [
+    {
+      "ability": "Embodied Reasoning: States",
+      "image_path": "images/state.png",
+      "question": "The picture shows two states of an egg. May I ask what process has occurred in the transition from the state on the left to the state on the right? \nOptions:\nA. Break \nB. Cooking \nC. Melting \nD. Frozen",
+      "answer": "B"
+    }
+  ],
+  "27": [
+    {
+      "ability": "Embodied Reasoning: Object Permanence",
+      "image_path": "images/objectpermanence.png",
+      "question": "Observe this picture, which shows the state of an apple after being cut. From its whole state to sliced state, which core property of the apple has not changed? \nOptions:\nA. Surface Area \nB. Completeness \nC. Category \nD. Shape",
+      "answer": "D"
+    }
+  ]
+}

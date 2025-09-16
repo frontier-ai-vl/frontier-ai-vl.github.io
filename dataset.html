@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./image.png">
+  <title>Frontier-A1-VL — Dataset</title>
+  <script src="./echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="./common.css">
+  <script src="./navbar.js"></script>
+  <script src="./footer.js"></script>
+  <style>
+    /* Page specific styles */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e5e7eb;
+    }
+
+    th, td {
+      padding: 15px 12px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .dataset-link {
+      color: var(--primary-red);
+      text-decoration: none;
+      transition: text-decoration 0.2s;
+    }
+
+    .dataset-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Mermaid思维导图样式 */
+    .mermaid {
+      overflow: auto;
+      max-height: 600px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      background: white;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    /* 确保缩放后的内容在容器内正确显示 */
+    .mermaid svg:not([style*="transform"]) {
+      transform: scale(1);
+    }
+
+    /* 拖拽模式样式 */
+    .mermaid.drag-mode {
+      cursor: grab;
+      user-select: none;
+    }
+
+    .mermaid.drag-mode:active {
+      cursor: grabbing;
+    }
+
+    .mermaid.drag-mode svg {
+      pointer-events: none;
+    }
+
+    /* 控制按钮样式 */
+    #dragToggleBtn:hover, #expandAllBtn:hover, #collapseAllBtn:hover, #zoomInBtn:hover, #zoomOutBtn:hover, #resetZoomBtn:hover {
+      opacity: 0.8;
+      transform: translateY(-1px);
+      transition: all 0.2s ease;
+    }
+
+    /* 缩放提示 */
+    .zoom-hint {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation will be injected here -->
+  <div id="navbar-container"></div>
+
+  <div style="min-height: calc(100vh - 64px); display: flex; flex-direction: column;">
+    <!-- Dataset Section -->
+    <section id="dataset" style="flex: 1;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-align: center;">Dataset</h2>
+      </div>
+      <h3 style="margin: 0 0 20px 0; color: var(--primary-red); text-align: center; font-size: 24px;">General Dataset</h3>
+      <div class="card">
+
+        <!-- Dataset Introduction -->
+        <div style="margin-bottom: 30px; display: flex; flex-direction: column; gap: 24px;">
+
+          <!-- LLaVA-OneVision-Data -->
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--primary-red);">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red); font-size: 18px; text-align: center;">🔍 LLaVA-OneVision-Data</h4>
+            <p style="margin: 0 0 12px 0; color: var(--muted); line-height: 1.6; font-size: 14px;">
+              A comprehensive multimodal dataset by LMMs-Lab containing 3.9M samples across 89 sub-datasets. Supports diverse vision-language
+              tasks including single-image, multi-image, and video scenarios. Features high-quality annotations for general VQA, OCR,
+              document/chart/screen understanding, mathematical reasoning, and language processing. The dataset emphasizes multi-task
+              learning with balanced coverage across various visual understanding domains.
+            </p>
+            <div style="display: flex; gap: 16px; font-size: 13px; color: var(--muted);">
+              <span><strong>Size:</strong> 3.9M Samples</span>
+              <span><strong>Tasks:</strong> VQA, OCR, Math, Document Understanding</span>
+              <span><strong>Languages:</strong> English, Chinese</span>
+              <span><strong>License:</strong> Apache-2.0</span>
+              <span><strong>Total Size:</strong> 255 GB</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 13px;">
+              <a href="https://huggingface.co/datasets/lmms-lab/LLaVA-OneVision-Data"
+                 target="_blank"
+                 class="dataset-link">
+                🔗 View on Hugging Face
+              </a>
+            </div>
+          </div>
+
+          <!-- Cosmos-Reason1-SFT-Dataset -->
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--primary-red);">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red); font-size: 18px; text-align: center;">🧠 Cosmos-Reason1-SFT-Dataset</h4>
+            <p style="margin: 0 0 12px 0; color: var(--muted); line-height: 1.6; font-size: 14px;">
+              A multimodal dataset from NVIDIA focused on physical commonsense and embodied reasoning. Contains 1.7M high-quality samples
+              designed to enhance vision-language models' understanding of real-world physics, spatial relationships, and cause-effect
+              reasoning. Includes diverse scenarios covering object interactions, motion dynamics, and environmental understanding
+              for both image and video modalities.
+            </p>
+            <div style="display: flex; gap: 16px; font-size: 13px; color: var(--muted);">
+              <span><strong>Size:</strong> 1.7M Samples</span>
+              <span><strong>Focus:</strong> Physical Commonsense & Embodied Reasoning</span>
+              <span><strong>Modalities:</strong> Image & Video</span>
+              <span><strong>License:</strong> CC-BY-4.0</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 13px;">
+              <a href="https://huggingface.co/datasets/nvidia/Cosmos-Reason1-SFT-Dataset"
+                 target="_blank"
+                 class="dataset-link">
+                🔗 View on Hugging Face
+              </a>
+            </div>
+          </div>
+
+          <!-- Llama-Nemotron-VLM-Dataset-v1 -->
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--primary-red);">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red); font-size: 18px; text-align: center;">🚀 Llama-Nemotron-VLM-Dataset-v1</h4>
+            <p style="margin: 0 0 12px 0; color: var(--muted); line-height: 1.6; font-size: 14px;">
+              A large-scale multimodal dataset from NVIDIA containing 2.86M samples across 21 sub-datasets. Features diverse
+              vision-language tasks including VQA, image captioning, and OCR. The dataset combines synthetic generation,
+              automated annotation, and human curation to ensure high quality and diversity. Includes both entirely synthetic
+              datasets and re-annotated public image datasets with enhanced annotations.
+            </p>
+            <div style="display: flex; gap: 16px; font-size: 13px; color: var(--muted);">
+              <span><strong>Size:</strong> 2.86M Samples</span>
+              <span><strong>Tasks:</strong> VQA, Captioning, OCR</span>
+              <span><strong>License:</strong> CC-BY-4.0</span>
+              <span><strong>Total Size:</strong> 747.86 GB</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 13px;">
+              <a href="https://huggingface.co/datasets/nvidia/Llama-Nemotron-VLM-Dataset-v1"
+                 target="_blank"
+                 class="dataset-link">
+                🔗 View on Hugging Face
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <table id="datasetsTable">
+          <thead>
+            <tr>
+              <th style="padding: 15px 12px;">Dataset Name</th>
+              <th style="padding: 15px 12px;">Capability</th>
+              <th style="padding: 15px 12px;">Dataset Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>LLaVA-OneVision-Data</td><td>General Perception (Counting, Classification, OCR, Doc/Chart, Captioning)</td><td>3.9M Samples</td></tr>
+            <tr><td>Cosmos-Reason1-SFT-Dataset</td><td>Spatial (Affordance, Relationship), Temporal (Future/Past reasoning, Causality)</td><td>1.7M Samples</td></tr>
+            <tr><td>Llama-Nemotron-VLM-Dataset-v1</td><td>General Perception (Captioning, OCR, Doc/Chart)</td><td>2.86M Samples</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Dataset Structure Mind Map -->
+        <div style="margin-top: 40px;">
+          <h3 style="margin: 0 0 20px 0; color: var(--primary-red); font-size: 18px; text-align: center;">🗺️General Dataset Structure</h3>
+          <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <!-- Tree Control Buttons -->
+            <div style="margin-bottom: 20px; text-align: center;">
+              <button id="expandAllBtn" style="margin: 0 10px; padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Expand All</button>
+              <button id="collapseAllBtn" style="margin: 0 10px; padding: 8px 16px; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Collapse All</button>
+              <button id="zoomInBtn" style="margin: 0 10px; padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Zoom In</button>
+              <button id="zoomOutBtn" style="margin: 0 10px; padding: 8px 16px; background: #f59e0b; color: white; border: white; border-radius: 6px; cursor: pointer; font-size: 14px;">Zoom Out</button>
+              <button id="resetZoomBtn" style="margin: 0 10px; padding: 8px 16px; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Reset Zoom</button>
+              <button id="dragToggleBtn" style="margin: 0 10px; padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Drag Mode</button>
+              <div class="zoom-hint" style="margin-top: 10px;">
+                💡 Tip: Hold Ctrl and scroll to zoom, or use the buttons above. Click "Drag Mode" to enable dragging.
+              </div>
+            </div>
+            <div class="mermaid">
+              graph LR
+                A[General Dataset] --> B[General Perception<br/>2,380,020 Samples]
+                A --> C[Spatial&Temporal Understanding<br/>1,219,586 Samples]
+                A --> D[Physical Understanding<br/>409,021 Samples]
+
+                B --> B1[Detection/Grounding<br/>341,397 Samples]
+                B --> B2[Counting<br/>267,001 Samples]
+                B --> B3[Pointing/REC<br/>36,359 Samples]
+                B --> B4[Segmentation<br/>1,173,339 Samples]
+                B --> B5[Classification<br/>242,689 Samples]
+                B --> B6[OCR/Chart/Doc<br/>64,800 Samples]
+                B --> B7[Captioning<br/>133,949 Samples]
+                B --> B8[Image eval<br/>3,531 Samples]
+                B --> B9[Knowledge reasoning<br/>9,955 Samples]
+
+                C --> C1[Spatial<br/>1,148,089 Samples]
+                C --> C2[Temporal<br/>71,497 Samples]
+
+                C1 --> C1A[Multi view corresponding<br/>95,677 Samples]
+                C1 --> C1B[Environment<br/>43,632 Samples]
+                C1 --> C1C[Plausibility<br/>62,027 Samples]
+                C1 --> C1D[Affordance<br/>103,843 Samples]
+                C1 --> C1E[Camera<br/>74,003 Samples]
+                C1 --> C1F[Relationship<br/>104,494 Samples]
+                C1 --> C1G[Measurement<br/>171,971 Samples]
+                C1 --> C1H[Speed estimation<br/>313,442 Samples]
+
+                C2 --> C2A[Action/Event<br/>24,856 Samples]
+                C2 --> C2B[Trajectory reasoning<br/>23,625 Samples]
+                C2 --> C2C[Future/Past reasoning<br/>71,147 Samples]
+                C2 --> C2D[Causality<br/>167,869 Samples]
+
+                D --> D1[Intuitive Physics<br/>228,166 Samples]
+                D --> D2[Embodied Reasoning<br/>180,855 Samples]
+
+                D1 --> D1A[Electromagnetism<br/>99,704 Samples]
+                D1 --> D1B[Thermodynamics<br/>60,849 Samples]
+                D1 --> D1C[Anti Physics<br/>67,613 Samples]
+
+                D2 --> D2A[Mechanics<br/>60,698 Samples]
+                D2 --> D2B[Attributes<br/>42,785 Samples]
+                D2 --> D2C[States<br/>32,715 Samples]
+                D2 --> D2D[Object Permanence<br/>44,657 Samples]
+
+                classDef mainNode fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff,fontSize:16px
+                classDef categoryNode fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff,fontSize:14px
+                classDef subcategoryNode fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff,fontSize:12px
+                classDef subsubcategoryNode fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff,fontSize:11px
+
+                class A mainNode
+                class B,C,D categoryNode
+                class B1,B2,B3,B4,B5,B6,B7,B8,B9,C1,C2,D1,D2 subcategoryNode
+                class C1A,C1B,C1C,C1D,C1E,C1F,C1G,C1H,C2A,C2B,C2C,C2D,D1A,D1B,D1C,D2A,D2B,D2C,D2D subsubcategoryNode
+            </div>
+          </div>
+        </div>
+
+        <!-- Dataset Statistics Chart -->
+        <div style="margin-top: 40px;">
+          <h4 style="margin: 0 0 10px 0; color: var(--primary-red); font-size: 18px; text-align: center;">📊Question Distribution</h4>
+          <p style="margin: 0 0 20px 0; color: #6b7280; font-size: 14px; text-align: center;">
+            💡 点击饼图扇形可查看对应类别的详细子分类
+          </p>
+          <div id="datasetChart" style="width: 100%; height: 500px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative;"></div>
+        </div>
+
+      </div>
+
+      <!-- 分割线 -->
+      <div style="margin: 60px 0; border-top: 2px solid #e5e7eb;"></div>
+
+      <!-- 行业数据集板块 -->
+      <h3 style="margin: 0 0 20px 0; color: var(--primary-red); text-align: center; font-size: 24px;">行业数据集</h3>
+      <div class="card">
+
+        <!-- 行业数据集介绍 -->
+        <div style="margin-bottom: 30px;">
+          <p style="margin: 0 0 20px 0; color: var(--muted); line-height: 1.8; font-size: 16px;">
+            我们的行业数据集专门针对实际应用场景进行优化，涵盖交通和能源两大领域。这些数据集包含了丰富的真实场景数据，
+            支持各种复杂的视觉识别和分析任务，为行业应用提供强大的数据支撑。
+          </p>
+        </div>
+
+        <!-- 行业数据集统计 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #3b82f6; text-align: center;">
+            <h4 style="margin: 0 0 8px 0; color: #3b82f6; font-size: 20px; text-align: center;">🚗 交通领域</h4>
+            <div style="font-size: 32px; font-weight: 700; color: #1f2937; margin: 8px 0;">70,912</div>
+            <div style="font-size: 14px; color: var(--muted);">问题数量</div>
+          </div>
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #059669; text-align: center;">
+            <h4 style="margin: 0 0 8px 0; color: #059669; font-size: 20px; text-align: center;">⚡ 能源领域</h4>
+            <div style="font-size: 32px; font-weight: 700; color: #1f2937; margin: 8px 0;">1,041</div>
+            <div style="font-size: 14px; color: var(--muted);">问题数量</div>
+          </div>
+          <div style="padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--primary-red); text-align: center;">
+            <h4 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 20px; text-align: center;">📊 总计</h4>
+            <div style="font-size: 32px; font-weight: 700; color: #1f2937; margin: 8px 0;">71,950</div>
+            <div style="font-size: 14px; color: var(--muted);">问题数量</div>
+          </div>
+        </div>
+
+        <!-- 行业数据集详细分类 -->
+        <div style="margin-top: 40px;">
+          <h4 style="margin: 0 0 20px 0; color: var(--primary-red); font-size: 18px; text-align: center;">📋 行业数据集分类</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="padding: 15px 12px;">主类别</th>
+                <th style="padding: 15px 12px;">子类别</th>
+                <th style="padding: 15px 12px;">细分场景</th>
+                <th style="padding: 15px 12px;">问题数量</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 交通类别 -->
+              <tr>
+                <td rowspan="10" style="font-weight: 600; color: #3b82f6; vertical-align: middle;">交通</td>
+                <td rowspan="4">交管</td>
+                <td>交通违停</td>
+                <td>792</td>
+              </tr>
+              <tr>
+                <td>船只</td>
+                <td>8,930</td>
+              </tr>
+              <tr>
+                <td>车辆</td>
+                <td>6,189</td>
+              </tr>
+              <tr>
+                <td>车牌</td>
+                <td>30,834</td>
+              </tr>
+              <tr>
+                <td rowspan="5">路面/山体异常</td>
+                <td>道路积水</td>
+                <td>1,184</td>
+              </tr>
+              <tr>
+                <td>道路施工</td>
+                <td>289</td>
+              </tr>
+              <tr>
+                <td>滑坡</td>
+                <td>797</td>
+              </tr>
+              <tr>
+                <td>道路裂缝、坑洼</td>
+                <td>2,958</td>
+              </tr>
+              <tr>
+                <td>路面抛洒</td>
+                <td>7,463</td>
+              </tr>
+              <tr>
+                <td>桥梁</td>
+                <td>桥梁缺陷</td>
+                <td>11,476</td>
+              </tr>
+              <!-- 能源类别 -->
+              <tr>
+                <td rowspan="3" style="font-weight: 600; color: #059669; vertical-align: middle;">能源</td>
+                <td rowspan="3">-</td>
+                <td>烟火</td>
+                <td>429</td>
+              </tr>
+              <tr>
+                <td>磕头机抽停</td>
+                <td>134</td>
+              </tr>
+              <tr>
+                <td>漏油</td>
+                <td>478</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </section>
+  </div>
+
+  <!-- Footer will be injected here -->
+  <div id="footer-container"></div>
+
+  <script>
+    // 页面加载完成后初始化
+    window.addEventListener('load', () => {
+      // 初始化导航栏
+      if (typeof initNavbar === 'function') {
+        initNavbar();
+      }
+
+      // 初始化页脚
+      if (typeof initFooter === 'function') {
+        initFooter();
+      }
+
+      // 初始化Mermaid
+      if (typeof mermaid !== 'undefined') {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'default'
+        });
+      }
+
+      // 绘制数据集分布饼图
+      drawDatasetChart();
+
+      // 初始化思维导图控制功能
+      initTreeControls();
+    });
+
+    // 绘制数据集分布饼图
+    function drawDatasetChart() {
+      const chartDom = document.getElementById('datasetChart');
+      const myChart = echarts.init(chartDom);
+
+      // 定义颜色调色板
+      const colorPalette = [
+        '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4',
+        '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e', '#84cc16',
+        '#f59e0b', '#10b981', '#6366f1', '#a855f7', '#d946ef',
+        '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4',
+        '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e', '#84cc16',
+        '#f59e0b', '#10b981', '#6366f1', '#a855f7', '#d946ef'
+      ];
+
+      // 定义数据
+      const mainData = [
+        {
+          value: 2380020,
+          name: 'General Perception',
+          itemStyle: { color: '#ef4444' },
+          subcategories: [
+            { name: 'Detection/Grounding', value: 341397, color: '#ef4444' },
+            { name: 'Counting', value: 267001, color: '#f97316' },
+            { name: 'Pointing/REC', value: 36359, color: '#eab308' },
+            { name: 'Segmentation', value: 1173339, color: '#22c55e' },
+            { name: 'Classification', value: 242689, color: '#06b6d4' },
+            { name: 'OCR/Chart/Doc', value: 64800, color: '#3b82f6' },
+            { name: 'Captioning', value: 133949, color: '#8b5cf6' },
+            { name: 'Image eval', value: 3531, color: '#ec4899' },
+            { name: 'Knowledge reasoning', value: 9955, color: '#f43f5e' }
+          ]
+        },
+        {
+          value: 1219586,
+          name: 'Spatial&Temporal Understanding',
+          itemStyle: { color: '#3b82f6' },
+          subcategories: [
+            { 
+              name: 'Spatial', 
+              value: 1148089, 
+              color: '#84cc16',
+              subcategories: [
+                { name: 'Multi view corresponding', value: 95677, color: '#84cc16' },
+                { name: 'Environment', value: 43632, color: '#f59e0b' },
+                { name: 'Plausibility', value: 62027, color: '#10b981' },
+                { name: 'Affordance', value: 103843, color: '#6366f1' },
+                { name: 'Camera', value: 74003, color: '#a855f7' },
+                { name: 'Relationship', value: 104494, color: '#d946ef' },
+                { name: 'Measurement', value: 171971, color: '#ef4444' },
+                { name: 'Speed estimation', value: 313442, color: '#f97316' }
+              ]
+            },
+            { 
+              name: 'Temporal', 
+              value: 71497, 
+              color: '#f59e0b',
+              subcategories: [
+                { name: 'Action/Event', value: 24856, color: '#eab308' },
+                { name: 'Trajectory reasoning', value: 23625, color: '#22c55e' },
+                { name: 'Future/Past reasoning', value: 71147, color: '#06b6d4' },
+                { name: 'Causality', value: 167869, color: '#3b82f6' }
+              ]
+            }
+          ]
+        },
+        {
+          value: 409021,
+          name: 'Physical Understanding',
+          itemStyle: { color: '#10b981' },
+          subcategories: [
+            { 
+              name: 'Intuitive Physics', 
+              value: 228166, 
+              color: '#8b5cf6',
+              subcategories: [
+                { name: 'Electromagnetism', value: 99704, color: '#8b5cf6' },
+                { name: 'Thermodynamics', value: 60849, color: '#ec4899' },
+                { name: 'Anti Physics', value: 67613, color: '#f43f5e' }
+              ]
+            },
+            { 
+              name: 'Embodied Reasoning', 
+              value: 180855, 
+              color: '#ec4899',
+              subcategories: [
+                { name: 'Mechanics', value: 60698, color: '#84cc16' },
+                { name: 'Attributes', value: 42785, color: '#f59e0b' },
+                { name: 'States', value: 32715, color: '#10b981' },
+                { name: 'Object Permanence', value: 44657, color: '#6366f1' }
+              ]
+            }
+          ]
+        }
+      ];
+
+      let currentData = mainData;
+      let currentTitle = 'General Dataset Distribution by Category';
+      let currentCategory = null;
+
+      function updateChart() {
+        const option = {
+          title: {
+            text: currentTitle,
+            left: 'center',
+            top: 10,
+            textStyle: {
+              color: '#1f2937',
+              fontSize: 18,
+              fontWeight: 600
+            }
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderColor: '#e5e7eb',
+            borderWidth: 1,
+            textStyle: {
+              color: '#1f2937'
+            }
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+            top: 'middle',
+            textStyle: {
+              color: '#1f2937',
+              fontSize: 12
+            }
+          },
+          series: [
+            {
+              name: currentCategory ? 'Subcategory' : 'Category',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              center: ['50%', '50%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 8,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
+              label: {
+                show: true,
+                position: 'outside',
+                formatter: '{d}%',
+                fontSize: 12,
+                color: '#1f2937'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '18',
+                  fontWeight: 'bold',
+                  color: '#1f2937'
+                },
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+              labelLine: {
+                show: true,
+                length: 15,
+                length2: 10,
+                smooth: true
+              },
+              data: currentData
+            }
+          ]
+        };
+
+        myChart.setOption(option);
+      }
+
+      // 添加点击事件
+      myChart.on('click', function (params) {
+        if (!currentCategory) {
+          // 点击主类别，进入子类别视图
+          const clickedCategory = mainData.find(item => item.name === params.name);
+          if (clickedCategory && clickedCategory.subcategories) {
+            currentCategory = params.name;
+            currentTitle = `${params.name} - Subcategories`;
+            currentData = clickedCategory.subcategories.map(sub => ({
+              value: sub.value,
+              name: sub.name,
+              itemStyle: { color: sub.color },
+              subcategories: sub.subcategories // 保留二级子分类信息
+            }));
+            updateChart();
+          }
+        } else {
+          // 点击子类别，如果有二级子分类则进入二级子分类视图
+          const parentCategory = mainData.find(item => item.name === currentCategory);
+          if (parentCategory && parentCategory.subcategories) {
+            const clickedSubcategory = parentCategory.subcategories.find(sub => sub.name === params.name);
+            if (clickedSubcategory && clickedSubcategory.subcategories) {
+              currentTitle = `${currentCategory} - ${params.name} - Details`;
+              currentData = clickedSubcategory.subcategories.map(sub => ({
+                value: sub.value,
+                name: sub.name,
+                itemStyle: { color: sub.color }
+              }));
+              updateChart();
+            }
+          }
+        }
+      });
+
+      // 添加返回按钮
+      const backButton = document.createElement('button');
+      backButton.innerHTML = '← 返回主视图';
+      backButton.style.cssText = `
+        padding: 8px 16px;
+        background: var(--primary-red);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        display: none;
+        margin-right: 10px;
+        transition: all 0.2s ease;
+      `;
+      
+      backButton.addEventListener('mouseenter', function() {
+        this.style.background = '#dc2626';
+        this.style.transform = 'translateY(-1px)';
+      });
+      
+      backButton.addEventListener('mouseleave', function() {
+        this.style.background = 'var(--primary-red)';
+        this.style.transform = 'translateY(0)';
+      });
+      
+      backButton.addEventListener('click', function() {
+        if (currentTitle.includes(' - Details')) {
+          // 从二级子分类返回到子分类
+          const parentCategory = mainData.find(item => item.name === currentCategory);
+          if (parentCategory && parentCategory.subcategories) {
+            currentTitle = `${currentCategory} - Subcategories`;
+            currentData = parentCategory.subcategories.map(sub => ({
+              value: sub.value,
+              name: sub.name,
+              itemStyle: { color: sub.color },
+              subcategories: sub.subcategories
+            }));
+            updateChart();
+          }
+        } else {
+          // 从子分类返回到主分类
+          currentCategory = null;
+          currentTitle = 'General Dataset Distribution by Category';
+          currentData = mainData;
+          updateChart();
+          backButton.style.display = 'none';
+        }
+      });
+
+      // 将返回按钮添加到标题容器中
+      const titleContainer = chartDom.parentNode.querySelector('h4').parentNode;
+      const titleElement = titleContainer.querySelector('h4');
+      titleContainer.insertBefore(backButton, titleElement);
+
+      // 监听图表状态变化，显示/隐藏返回按钮
+      const originalSetOption = myChart.setOption;
+      myChart.setOption = function(option) {
+        const result = originalSetOption.call(this, option);
+        if (currentCategory) {
+          backButton.style.display = 'inline-block';
+          // 更新返回按钮文本
+          if (currentTitle.includes(' - Details')) {
+            backButton.innerHTML = '← 返回子分类';
+          } else {
+            backButton.innerHTML = '← 返回主视图';
+          }
+        } else {
+          backButton.style.display = 'none';
+        }
+        return result;
+      };
+
+      // 初始化图表
+      updateChart();
+
+      // 响应式调整
+      window.addEventListener('resize', () => {
+        myChart.resize();
+      });
+    }
+
+    // 初始化思维导图控制功能
+    function initTreeControls() {
+      const dragToggleBtn = document.getElementById('dragToggleBtn');
+      const expandAllBtn = document.getElementById('expandAllBtn');
+      const collapseAllBtn = document.getElementById('collapseAllBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const resetZoomBtn = document.getElementById('resetZoomBtn');
+
+      let currentZoom = 1;
+      const zoomStep = 0.2;
+      const minZoom = 0.5;
+      const maxZoom = 2.0;
+      let isExpanded = false;
+      
+      // 拖拽相关变量
+      let isDragMode = false;
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let currentTranslateX = 0;
+      let currentTranslateY = 0;
+
+      // 定义折叠和展开的Mermaid图表
+      const collapsedChart = `
+        graph LR
+          A[General Dataset] --> B[General Perception<br/>9 Subcategories<br/>2,380,020 Samples]
+          A --> C[Spatial&Temporal Understanding<br/>2 Main Categories<br/>1,219,586 Samples]
+          A --> D[Physical Understanding<br/>2 Main Categories<br/>409,021 Samples]
+          
+          classDef mainNode fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff,fontSize:16px
+          classDef categoryNode fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff,fontSize:14px
+          
+          class A mainNode
+          class B,C,D categoryNode
+      `;
+
+      const expandedChart = `
+        graph LR
+          A[General Dataset] --> B[General Perception]
+          A --> C[Spatial&Temporal Understanding]
+          A --> D[Physical Understanding]
+
+          B --> B1[Detection/Grounding<br/>341,397 Samples]
+          B --> B2[Counting<br/>267,001 Samples]
+          B --> B3[Pointing/REC<br/>36,359 Samples]
+          B --> B4[Segmentation<br/>1,173,339 Samples]
+          B --> B5[Classification<br/>242,689 Samples]
+          B --> B6[OCR/Chart/Doc<br/>64,800 Samples]
+          B --> B7[Captioning<br/>133,949 Samples]
+          B --> B8[Image eval<br/>3,531 Samples]
+          B --> B9[Knowledge reasoning<br/>9,955 Samples]
+
+          C --> C1[Spatial<br/>1,148,089 Samples]
+          C --> C2[Temporal<br/>71,497 Samples]
+
+          C1 --> C1A[Multi view corresponding<br/>95,677 Samples]
+          C1 --> C1B[Environment<br/>43,632 Samples]
+          C1 --> C1C[Plausibility<br/>62,027 Samples]
+          C1 --> C1D[Affordance<br/>103,843 Samples]
+          C1 --> C1E[Camera<br/>74,003 Samples]
+          C1 --> C1F[Relationship<br/>104,494 Samples]
+          C1 --> C1G[Measurement<br/>171,971 Samples]
+          C1 --> C1H[Speed estimation<br/>313,442 Samples]
+
+          C2 --> C2A[Action/Event<br/>24,856 Samples]
+          C2 --> C2B[Trajectory reasoning<br/>23,625 Samples]
+          C2 --> C2C[Future/Past reasoning<br/>71,147 Samples]
+          C2 --> C2D[Causality<br/>167,869 Samples]
+
+          D --> D1[Intuitive Physics<br/>228,166 Samples]
+          D --> D2[Embodied Reasoning<br/>180,855 Samples]
+
+          D1 --> D1A[Electromagnetism<br/>99,704 Samples]
+          D1 --> D1B[Thermodynamics<br/>60,849 Samples]
+          D1 --> D1C[Anti Physics<br/>67,613 Samples]
+
+          D2 --> D2A[Mechanics<br/>60,698 Samples]
+          D2 --> D2B[Attributes<br/>42,785 Samples]
+          D2 --> D2C[States<br/>32,715 Samples]
+          D2 --> D2D[Object Permanence<br/>44,657 Samples]
+
+          classDef mainNode fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff,fontSize:16px
+          classDef categoryNode fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff,fontSize:14px
+          classDef subcategoryNode fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff,fontSize:12px
+          classDef subsubcategoryNode fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff,fontSize:11px
+
+          class A mainNode
+          class B,C,D categoryNode
+          class B1,B2,B3,B4,B5,B6,B7,B8,B9,C1,C2,D1,D2 subcategoryNode
+          class C1A,C1B,C1C,C1D,C1E,C1F,C1G,C1H,C2A,C2B,C2C,C2D,D1A,D1B,D1C,D2A,D2B,D2C,D2D subsubcategoryNode
+      `;
+
+      // 渲染图表的函数
+      function renderChart(chartCode) {
+        const mermaidContainer = document.querySelector('.mermaid');
+        if (mermaidContainer && typeof mermaid !== 'undefined') {
+          mermaidContainer.innerHTML = '';
+          mermaid.render('mermaid-chart', chartCode).then(({ svg }) => {
+            mermaidContainer.innerHTML = svg;
+            // 重置缩放和拖拽位置
+            currentZoom = 1;
+            currentTranslateX = 0;
+            currentTranslateY = 0;
+            applyZoom();
+            // 重新应用拖拽模式样式
+            if (isDragMode) {
+              mermaidContainer.classList.add('drag-mode');
+            }
+          });
+        }
+      }
+
+      // 拖拽模式切换
+      dragToggleBtn.addEventListener('click', () => {
+        isDragMode = !isDragMode;
+        const mermaidContainer = document.querySelector('.mermaid');
+        
+        if (isDragMode) {
+          mermaidContainer.classList.add('drag-mode');
+          dragToggleBtn.style.background = '#dc2626';
+          dragToggleBtn.textContent = 'Exit Drag';
+          dragToggleBtn.title = 'Click to exit drag mode';
+        } else {
+          mermaidContainer.classList.remove('drag-mode');
+          dragToggleBtn.style.background = '#6366f1';
+          dragToggleBtn.textContent = 'Drag Mode';
+          dragToggleBtn.title = 'Click to enter drag mode';
+          // 重置拖拽位置
+          currentTranslateX = 0;
+          currentTranslateY = 0;
+          applyTransform();
+        }
+      });
+
+      // 拖拽功能实现
+      const mermaidContainer = document.querySelector('.mermaid');
+      
+      mermaidContainer.addEventListener('mousedown', (e) => {
+        if (!isDragMode) return;
+        
+        isDragging = true;
+        dragStartX = e.clientX - currentTranslateX;
+        dragStartY = e.clientY - currentTranslateY;
+        mermaidContainer.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging || !isDragMode) return;
+        
+        currentTranslateX = e.clientX - dragStartX;
+        currentTranslateY = e.clientY - dragStartY;
+        applyTransform();
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          if (isDragMode) {
+            mermaidContainer.style.cursor = 'grab';
+          }
+        }
+      });
+
+      // 应用变换
+      function applyTransform() {
+        const svgElement = mermaidContainer.querySelector('svg');
+        if (svgElement) {
+          svgElement.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${currentZoom})`;
+        }
+      }
+
+      // 展开全部
+      expandAllBtn.addEventListener('click', () => {
+        if (!isExpanded) {
+          renderChart(expandedChart);
+          isExpanded = true;
+          expandAllBtn.style.background = '#059669';
+          expandAllBtn.textContent = 'Collapse Details';
+        }
+      });
+
+      // 折叠全部
+      collapseAllBtn.addEventListener('click', () => {
+        if (isExpanded) {
+          renderChart(collapsedChart);
+          isExpanded = false;
+          expandAllBtn.style.background = 'var(--primary-red)';
+          expandAllBtn.textContent = 'Expand All';
+        }
+      });
+
+      // 放大
+      zoomInBtn.addEventListener('click', () => {
+        if (currentZoom < maxZoom) {
+          currentZoom += zoomStep;
+          applyZoom();
+        }
+      });
+
+      // 缩小
+      zoomOutBtn.addEventListener('click', () => {
+        if (currentZoom > minZoom) {
+          currentZoom -= zoomStep;
+          applyZoom();
+        }
+      });
+
+      // 重置缩放
+      resetZoomBtn.addEventListener('click', () => {
+        currentZoom = 1;
+        currentTranslateX = 0;
+        currentTranslateY = 0;
+        applyZoom();
+      });
+
+      // 应用缩放
+      function applyZoom() {
+        const mermaidContainer = document.querySelector('.mermaid');
+        if (mermaidContainer) {
+          // 只缩放SVG内容，不改变容器大小
+          const svgElement = mermaidContainer.querySelector('svg');
+          if (svgElement) {
+            svgElement.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${currentZoom})`;
+            svgElement.style.transformOrigin = 'center center';
+            svgElement.style.transition = 'transform 0.3s ease';
+          }
+        }
+      }
+
+      // 添加鼠标滚轮缩放支持
+      if (mermaidContainer) {
+        mermaidContainer.addEventListener('wheel', (e) => {
+          if (e.ctrlKey) {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+              // 向上滚动，放大
+              if (currentZoom < maxZoom) {
+                currentZoom += zoomStep;
+                applyZoom();
+              }
+            } else {
+              // 向下滚动，缩小
+              if (currentZoom > minZoom) {
+                currentZoom -= zoomStep;
+                applyZoom();
+              }
+            }
+          }
+        });
+      }
+
+      // 初始化时显示折叠状态
+      renderChart(collapsedChart);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./image.png?v=1.0">
+  <link rel="shortcut icon" type="image/png" href="./image.png?v=1.0">
+  <link rel="apple-touch-icon" href="./image.png?v=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self';">
+  <title>Frontier-A1-VL — MultiModal Diffusion</title>
+  <script src="./echarts.min.js"></script>
+  <!-- 引入Mermaid.js库 -->
+  <script src="./mermaid.min.js"></script>
+  <link rel="stylesheet" href="./common.css">
+  <script src="./navbar.js"></script>
+  <script src="./footer.js"></script>
+  <!-- 引入思维导图相关脚本 -->
+  <script src="./home-mindmap.js"></script>
+
+  <style>
+    /* CSS Variables */
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.15);
+      --primary-red: #dc2626;
+      --primary-red-dark: #b91c1c;
+    }
+    
+    /* 标题glitch动画默认激活 */
+    .glitch::after {
+      transform: scaleX(1) !important;
+      animation: glitchPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes glitchPulse {
+      0%, 100% { 
+        opacity: 1;
+        transform: scaleX(1);
+      }
+      50% { 
+        opacity: 0.7;
+        transform: scaleX(0.95);
+      }
+    }
+    
+    /* 左侧导航菜单样式 */
+    .left-sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+      border-right: 1px solid var(--border);
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      overflow-y: auto;
+      z-index: 100;
+      padding: 0;
+    }
+    
+    .left-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .left-sidebar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    .left-sidebar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    
+    .left-sidebar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    .sidebar-header {
+      padding: 24px 20px 20px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+      background: #f8fafc;
+    }
+    
+    .sidebar-header h3 {
+      margin: 0;
+      color: var(--primary-red);
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .nav-menu {
+      list-style: none;
+      padding: 0 16px;
+      margin: 0;
+    }
+    
+    .nav-menu li {
+      margin: 0 0 16px 0;
+    }
+    
+    .nav-menu li:last-child {
+      margin-bottom: 0;
+    }
+    
+    .nav-menu a {
+      display: block;
+      padding: 16px 16px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      position: relative;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+    
+    .nav-menu a:hover {
+      background: #f8fafc;
+      color: var(--primary-red);
+      border-color: var(--border);
+    }
+    
+    .nav-menu a.active {
+      background: var(--primary-red);
+      color: #ffffff;
+      font-weight: 500;
+      border-color: var(--primary-red);
+    }
+    
+    .nav-menu .nav-section {
+      font-weight: 500;
+      color: var(--primary-red);
+      background: #fef2f2;
+      border-color: #fecaca;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* 主内容区域调整 */
+    .main-content {
+      margin-left: 280px;
+      transition: margin-left 0.3s ease;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 1200px) {
+      .left-sidebar {
+        width: 260px;
+      }
+      
+      .main-content {
+        margin-left: 260px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .left-sidebar {
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        height: auto;
+        margin-bottom: 20px;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .sidebar-header {
+        padding: 20px 16px 16px 16px;
+        margin-bottom: 16px;
+      }
+      
+      .nav-menu {
+        padding: 0 12px 16px 12px;
+      }
+      
+      .nav-menu li {
+        margin: 0 0 6px 0;
+      }
+      
+      .nav-menu a {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      
+      .floating-chat-btn {
+        min-width: 100px;
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+      
+      .floating-chat-btn::before {
+        display: none;
+      }
+      
+      .sidebar-chat-btn-container {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: 0 12px;
+      }
+    }
+    
+    /* Page specific styles */
+    
+    /* Mind Map Button Styles */
+    .controls button {
+      padding: 10px 20px;
+      margin: 0 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-red);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+    
+    .controls button:hover {
+      background-color: var(--primary-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+    }
+    
+    .controls button:active {
+      transform: translateY(0);
+    }
+    
+    /* MindElixir思维导图样式优化 */
+    #mindmap-container {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* 思维导图容器样式 */
+    #mindmap-container .map-container {
+      background: var(--card) !important;
+      border-radius: 12px !important;
+    }
+    
+    /* 节点样式优化 */
+    #mindmap-container .map-container .node {
+      transition: all 0.3s ease;
+    }
+    
+    /* 思维导图控制按钮样式 */
+    .controls button {
+      padding: 10px 20px;
+      margin: 0 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-red);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+    
+    .controls button:hover {
+      background-color: var(--primary-red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+    }
+    
+    .controls button:active {
+      transform: translateY(0);
+    }
+    
+    #drag-toggle {
+      background-color: var(--primary-red);
+    }
+    
+    #drag-toggle.active {
+      background-color: #059669;
+    }
+    
+    /* 思维导图容器样式 */
+    #mindmap-container .map-container {
+      background: var(--card) !important;
+      border-radius: 12px !important;
+    }
+    
+    /* 节点样式优化 */
+    #mindmap-container .map-container .node {
+      transition: all 0.3s ease;
+    }
+    
+    #mindmap-container .map-container .node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* 连线样式优化 */
+    #mindmap-container .map-container .link {
+      transition: stroke 0.3s ease;
+    }
+    
+    /* 确保思维导图响应式 */
+    #mindmap-container .map-container {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Mind Map Styles */
+    .mindmap-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .mindmap-root {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .mindmap-root:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(220, 38, 38, 0.4);
+    }
+
+    .branch-node {
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .branch-node:hover {
+      transform: scale(1.05);
+    }
+
+    .branch-content {
+      transition: all 0.3s ease;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sub-node {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sub-node:hover {
+      background: #e5e7eb !important;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .sub-branch-title {
+      transition: all 0.3s ease;
+    }
+
+    .toggle-icon {
+      margin-left: 8px;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .branch-line {
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .mindmap-branches {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .mindmap-container {
+        overflow-x: auto;
+        padding: 15px;
+      }
+      
+      .carousel-content {
+        padding: 20px;
+      }
+      
+      .carousel {
+        min-height: 300px;
+      }
+    }
+
+    section { scroll-margin-top: 80px; padding: 64px 0; }
+    .card img.rounded { border-radius: 16px; }
+
+    .hero-bg { position:absolute; inset:0; z-index:-1; background: radial-gradient(60rem 60rem at 50% -10%, #fecaca66, transparent); }
+    .muted { color: var(--muted); }
+    .kpi { display:flex; align-items:center; gap:10px; }
+    .kpi strong { font-weight:700; }
+
+    .flex { display:flex; align-items:center; gap:10px; }
+
+    .code { margin-top: 8px; background:#0b0f19; color:#e5e7eb; border-radius: 12px; padding: 16px; overflow:auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+
+    /* Charts */
+    .chart { width:100%; height: 420px; }
+    canvas { display:block; width:100%; height:100%; }
+
+    .img-grid { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .aspect-video { position:relative; width:100%; padding-top: 56.25%; border:1px solid var(--border); border-radius: 12px; background:#f3f4f6; overflow:hidden; }
+    .aspect-video > * { position:absolute; inset:0; width:100%; height:100%; object-fit: cover; }
+    .line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* Video grid */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .video-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+    .video-placeholder { width: 100%; height: 200px; background: linear-gradient(45deg, #f3f4f6, #e5e7eb); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; }
+
+    /* Floating Chat Button – sidebar style */
+    .floating-chat-btn {
+      display: inline-block;
+      width: auto;
+      min-width: 120px;
+      padding: 12px 20px;
+      background: #fef2f2;
+      color: var(--primary-red);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .floating-chat-btn:hover {
+      background: #fecaca;
+      color: var(--primary-red);
+      border-color: var(--primary-red);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+    }
+
+    .floating-chat-btn:focus {
+      outline: none;
+      background: #fecaca;
+      color: var(--primary-red);
+      border-color: var(--primary-red);
+    }
+    
+    /* Sidebar chat button container */
+    .sidebar-chat-btn-container {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      margin: 0 16px;
+      padding: 0;
+      text-align: center;
+    }
+
+    .floating-chat-btn::before {
+      display: none;
+    }
+
+
+
+    /* Carousel */
+    .carousel-container { 
+      position: relative; 
+      margin: 20px 0;
+    }
+    
+    .carousel { 
+      position: relative; 
+      min-height: 400px; /* 设置最小高度 */
+      overflow: hidden; 
+      border-radius: 20px; 
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9); 
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: height 0.5s ease; /* 平滑高度过渡 */
+    }
+    
+    .carousel-slide { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      opacity: 0; 
+      transition: opacity 0.8s ease-in-out; 
+      visibility: hidden;
+    }
+    
+    .carousel-slide.active { 
+      opacity: 1; 
+      visibility: visible;
+      position: relative; /* 活动幻灯片使用相对定位，撑开父容器 */
+    }
+    
+    .carousel-content { 
+      text-align: center; 
+      padding: 40px; /* 减小内边距以适应更多内容 */
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .carousel-dots { 
+      display: flex; 
+      justify-content: center; 
+      gap: 12px; 
+      margin-top: 20px; 
+    }
+    
+    .carousel-dot { 
+      width: 12px; 
+      height: 12px; 
+      border-radius: 50%; 
+      background: #d1d5db; 
+      cursor: pointer; 
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .carousel-dot:hover {
+      transform: scale(1.2);
+      background: var(--primary-red);
+    }
+    
+    .carousel-dot.active { 
+      background: var(--primary-red);
+      border-color: var(--primary-red-dark);
+      transform: scale(1.1);
+    }
+    
+    /* Carousel Navigation Arrows */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(220, 38, 38, 0.2);
+      border-radius: 20px;
+      width: 56px;
+      height: 56px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-red);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 
+                  0 2px 8px rgba(0, 0, 0, 0.08),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      z-index: 100;
+      opacity: 0.8;
+      overflow: hidden;
+    }
+    
+    .carousel-nav::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 20px;
+    }
+    
+    .carousel-nav svg {
+      position: relative;
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-nav:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 12px 40px rgba(220, 38, 38, 0.3), 
+                  0 4px 16px rgba(220, 38, 38, 0.2),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      opacity: 1;
+      border-color: var(--primary-red);
+    }
+    
+    .carousel-nav:hover::before {
+      opacity: 1;
+    }
+    
+    .carousel-nav:hover svg {
+      fill: white;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    
+    .carousel-nav:active {
+      transform: translateY(-50%) scale(1.05);
+    }
+    
+    .carousel-prev {
+      left: 20px;
+    }
+    
+    .carousel-prev:hover svg {
+      transform: translateX(-2px);
+    }
+    
+    .carousel-next {
+      right: 20px;
+    }
+    
+    .carousel-next:hover svg {
+      transform: translateX(2px);
+    }
+    
+    /* 确保按钮在移动端也可见 */
+    @media (max-width: 768px) {
+      .carousel-nav {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+      }
+      
+      .carousel-nav svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .carousel-prev {
+        left: 10px;
+      }
+      
+      .carousel-next {
+        right: 10px;
+      }
+    }
+    
+
+  </style>
+</head>
+<body>
+  <!-- 左侧导航菜单 -->
+  <div class="left-sidebar" id="leftSidebar">
+    <div class="sidebar-header">
+      <h3>📚 Navigation</h3>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#home" class="nav-section">🏠 Back to Top</a></li>
+      <li><a href="#industry-applications" class="nav-section">🚀 Industry Applications</a></li>
+      <li><a href="#benchmark-overview" class="nav-section">📊 Benchmark Overview</a></li>
+      <li><a href="#training-dataset" class="nav-section">📈 Dataset Overview</a></li>
+      <li><a href="#model-overview" class="nav-section">🤖 Model Overview</a></li>
+      <li><a href="#results-overview" class="nav-section">🏆 Results Overview</a></li>
+    </ul>
+    
+    <!-- Floating Chat Button in sidebar -->
+    <div class="sidebar-chat-btn-container">
+      <a href="chat.html" class="floating-chat-btn">
+        💬 Chat Demo
+      </a>
+    </div>
+  </div>
+  
+
+
+  <!-- Home -->
+  <div class="main-content">
+    <section id="home" class="container" style="position:relative; padding-top: 60px; padding-bottom: 100px;">
+      <div class="hero-bg"></div>
+      
+      <!-- 主标题移到卡片外 -->
+      <div style="max-width: 100%; text-align: center; margin-bottom: 40px;">
+        <h1 style="text-align: center; margin-bottom: 0; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;">
+          <span class="accent glitch" data-text="Frontier-A1-VL">Frontier-A1-VL</span>
+        </h1>
+      </div>
+      
+      <div class="card" style="margin-top: 40px;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 20px 0;" id="challenge-solution">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+            <!-- Challenge Card -->
+            <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 16px; padding: 24px; border: 1px solid #fca5a5; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+              <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 24px; margin-right: 10px;">🎯</span>
+                <h4 style="margin: 0; color: #dc2626; font-size: 18px; font-weight: 600;">Current Challenge</h4>
+              </div>
+              <p style="margin: 0; color: #7f1d1d; font-size: 15px; line-height: 1.6;">
+                Open-source autoregressive models underperform in industrial scenarios like energy and traffic inspection
+              </p>
+            </div>
+            
+            <!-- Solution Card -->
+            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 16px; padding: 24px; border: 1px solid #60a5fa; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+              <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 24px; margin-right: 10px;">💡</span>
+                <h4 style="margin: 0; color: #1e40af; font-size: 18px; font-weight: 600;">Our Solution</h4>
+              </div>
+              <p style="margin: 0; color: #1e3a8a; font-size: 15px; line-height: 1.6;">
+                Systematically designed a comprehensive multimodal diffusion model benchmark evaluation system
+              </p>
+            </div>
+            
+            <!-- Architecture Innovation Card -->
+            <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 16px; padding: 24px; border: 1px solid #4ade80; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+              <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 24px; margin-right: 10px;">🏗️</span>
+                <h4 style="margin: 0; color: #15803d; font-size: 18px; font-weight: 600;">Architecture Innovation</h4>
+              </div>
+              <p style="margin: 0; color: #14532d; font-size: 15px; line-height: 1.6;">
+                Diffusion Model constrains output paradigm in complex video reasoning
+              </p>
+            </div>
+            
+            <!-- Reinforcement Learning Enhancement Card -->
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 16px; padding: 24px; border: 1px solid #fbbf24; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+              <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 24px; margin-right: 10px;">🧠</span>
+                <h4 style="margin: 0; color: #d97706; font-size: 18px; font-weight: 600;">Reinforcement Learning Enhancement</h4>
+              </div>
+              <p style="margin: 0; color: #78350f; font-size: 15px; line-height: 1.6;">
+                Enhances complex spatiotemporal reasoning through reinforcement learning
+              </p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+
+      <!-- Industry Applications Section Title -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700;" class="neon-text" id="industry-applications">🚀 Industry Applications</h2>
+      </div>
+
+      <!-- Industry Applications Section -->
+      <div class="card" style="margin-top: 40px;">
+        <div class="grid grid-3" style="margin-bottom:24px;">
+          <div style="text-align:center;">
+            <h4 style="margin:0 0 12px 0; color: var(--primary-red);">⚡ Energy Inspection</h4>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Power line defect detection</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Solar panel efficiency analysis</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Infrastructure health monitoring</p>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <h4 style="margin:0 0 12px 0; color: var(--primary-red);">🚦 Traffic Inspection</h4>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Road condition assessment</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Traffic flow analysis</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Safety hazard identification</p>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <h4 style="margin:0 0 12px 0; color: var(--primary-red);">🤖 Digital Agent Support</h4>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Autonomous drone navigation</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px; margin-bottom:12px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Real-time decision making</p>
+            </div>
+            <div style="background:#f3f4f6; border-radius:12px; padding:16px;">
+              <p style="margin:0; font-size:14px; color: var(--muted);">Intelligent inspection workflows</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+
+      <!-- Benchmark Section Title -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700;" id="benchmark-overview">Benchmark Overview</h2>
+      </div>
+
+      <!-- Benchmark Section (Framework + Examples) -->
+      <div class="card" style="margin-top: 40px;">
+        <!-- Benchmark Ontology -->
+        <h3 style="margin-top: 0; margin-bottom: 24px; color: var(--primary-red); text-align: center;" id="benchmark-ontology">🧠 Benchmark Ontology</h3>
+        <p style="color: var(--muted); line-height: 1.6; margin-bottom: 30px; text-align: center;">
+          Our comprehensive multimodal evaluation benchmark is organized into 3 major categories encompassing 26 subcategories, 
+          providing systematic and thorough coverage of multimodal AI system capabilities.
+        </p>
+        
+        <!-- Mind Map Controls -->
+        <div class="controls" style="text-align: center; margin: 20px 0;">
+          <button onclick="expandAll()">Expand All</button>
+          <button onclick="collapseAll()">Collapse All</button>
+          <button onclick="zoomIn()">Zoom In</button>
+          <button onclick="zoomOut()">Zoom Out</button>
+          <button onclick="resetZoom()">Reset Zoom</button>
+          <button onclick="toggleDrag()" id="drag-toggle">Enable Drag</button>
+          <span id="zoom-indicator" style="margin-left: 15px; color: var(--muted); font-size: 14px;">Zoom: 100%</span>
+        </div>
+        
+        <!-- Mind Map Container -->
+        <div id="mindmap-container" style="width: 100%; height: 600px; border: 1px solid var(--border); background-color: var(--card); border-radius: 12px; box-shadow: var(--shadow);"></div>
+        
+        <!-- 内部分隔线 -->
+        <div style="height: 1px; background: linear-gradient(90deg, transparent, #e5e7eb, transparent); margin: 60px auto; max-width: 80%;"></div>
+        
+        <!-- Ontology Examples -->
+        <h3 style="margin-top: 0; margin-bottom: 24px; color: var(--primary-red); text-align: center;" id="ontology-examples">🖼️ Ontology Examples</h3>
+        
+
+        
+        <!-- Dataset Cases Carousel -->
+        <div class="carousel-container">
+          <div class="carousel">
+            <!-- Dynamic content will be loaded here -->
+          </div>
+          
+          <!-- Carousel Navigation Arrows -->
+          <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+          </button>
+          <button class="carousel-nav carousel-next" onclick="changeSlide(1)">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Carousel Navigation Dots -->
+        <div class="carousel-dots">
+          <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+          <span class="carousel-dot" onclick="currentSlide(2)"></span>
+          <span class="carousel-dot" onclick="currentSlide(3)"></span>
+          <span class="carousel-dot" onclick="currentSlide(4)"></span>
+          <span class="carousel-dot" onclick="currentSlide(5)"></span>
+          <span class="carousel-dot" onclick="currentSlide(6)"></span>
+          <span class="carousel-dot" onclick="currentSlide(7)"></span>
+        </div>
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+
+      <!-- Dataset Overview Section Title -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700;" id="training-dataset">📊 Dataset Overview</h2>
+      </div>
+
+      <!-- Training Dataset Overview Section -->
+      <div class="card" style="margin-top: 40px;">
+        <p style="color: var(--muted); line-height: 1.6; margin-bottom: 30px; text-align: center;">
+          We utilize high-quality datasets to train our multimodal model, ensuring comprehensive coverage across various vision-language tasks.
+        </p>
+        
+        <div class="grid grid-3" style="margin-bottom: 24px;">
+          <div style="text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red);" id="llava-data">🔍 LLaVA-OneVision-Data</h4>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">3.9M samples across 89 sub-datasets</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">VQA, OCR, Math, Document Understanding</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">255 GB total size</p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red);" id="cosmos-data">🧠 Cosmos-Reason1-SFT</h4>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">1.7M samples for physical commonsense</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Embodied reasoning & spatial relationships</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Image & video modalities</p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red);" id="nemotron-data">🚀 Llama-Nemotron-VLM</h4>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">2.86M samples across 21 sub-datasets</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">VQA, Captioning, OCR tasks</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">747.86 GB total size</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+
+      <!-- Model Overview Section Title -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700;" id="model-overview">🤖 Model Overview</h2>
+      </div>
+
+      <!-- Model Overview Section -->
+      <div class="card" style="margin-top: 40px;">
+        <p style="color: var(--muted); line-height: 1.6; margin-bottom: 30px; text-align: center;">
+          Our Frontier-A1-VL model leverages cutting-edge technology to achieve superior performance in multimodal understanding and generation.
+        </p>
+        
+        <div class="grid grid-2" style="margin-bottom: 24px;">
+          <div style="text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red);" id="discrete-flow">⛁ Discrete Flow Matching</h4>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">20% improvement over autoregressive models</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">20% faster inference speed</p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="margin: 0 0 12px 0; color: var(--primary-red);" id="qwen-foundation">✦ Qwen2.5 VL 7B Foundation</h4>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Built on state-of-the-art foundation model</p>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 16px;">
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Comprehensive distributed training code</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="background: #f8fafc; border-radius: 12px; padding: 20px; margin-top: 20px;">
+          <h4 style="margin: 0 0 16px 0; color: var(--primary-red); text-align: center;" id="technical-specs">Technical Specifications</h4>
+          <div class="grid grid-2" style="gap: 20px;">
+            <div>
+              <h5 style="margin: 0 0 8px 0; color: var(--text);">Framework & Foundation</h5>
+              <ul style="margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; line-height: 1.6;">
+                <li>Based on FUDOKI framework architecture</li>
+                <li>Foundation model: Qwen2.5-VL-7B</li>
+                <li>Training data: 1M+ samples, 200GB+ total volume</li>
+              </ul>
+            </div>
+            <div>
+              <h5 style="margin: 0 0 8px 0; color: var(--text);">Training Infrastructure</h5>
+              <ul style="margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; line-height: 1.6;">
+                <li>LLaMAFactory + DeepSpeed framework</li>
+                <li>BF16 mixed precision training</li>
+                <li>32x H100 GPUs distributed training</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+
+      <!-- Results Overview Section Title -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="color: var(--primary-red); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700;" id="results-overview">🏆 Results Overview</h2>
+      </div>
+
+      <!-- Results Overview Section -->
+      <div class="card" style="margin-top: 40px;">
+        <p style="color: var(--muted); line-height: 1.6; margin-bottom: 30px; text-align: center;">
+          Our Frontier-A1-VL model demonstrates superior performance across multiple benchmarks, achieving significant improvements in accuracy, generalization, and speed.
+        </p>
+        
+        <!-- Performance Summary Cards -->
+        <div class="grid grid-3" style="margin-bottom: 30px;" id="performance-summary">
+          <div style="text-align: center;">
+            <div style="background: linear-gradient(135deg, #fef2f2, #fecaca); border-radius: 16px; padding: 20px; border: 1px solid #fecaca;">
+              <h4 style="margin: 0 0 12px 0; color: var(--primary-red);">🚀 Performance Improvement</h4>
+              <div style="font-size: 32px; font-weight: 700; color: var(--primary-red); margin-bottom: 8px;">20%</div>
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Improvement over autoregressive models</p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <div style="background: linear-gradient(135deg, #f0f9ff, #bae6fd); border-radius: 16px; padding: 20px; border: 1px solid #bae6fd;">
+              <h4 style="margin: 0 0 12px 0; color: var(--primary-red);">⚡ Speed Enhancement</h4>
+              <div style="font-size: 32px; font-weight: 700; color: var(--primary-red); margin-bottom: 8px;">20%</div>
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">Faster inference speed</p>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <div style="background: linear-gradient(135deg, #f0fdf4, #bbf7d0); border-radius: 16px; padding: 20px; border: 1px solid #bbf7d0;">
+              <h4 style="margin: 0 0 12px 0; color: var(--primary-red);">🎯 Benchmark Coverage</h4>
+              <div style="font-size: 32px; font-weight: 700; color: var(--primary-red); margin-bottom: 8px;">3大类</div>
+              <p style="margin: 0; font-size: 14px; color: var(--muted);">26小类</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- General Benchmark Evaluation Results Chart -->
+         <div style="background: white; border-radius: 12px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+           <h4 style="margin: 0 0 20px 0; color: var(--primary-red); text-align: center;" id="general-evaluation">📈 General Benchmark Evaluation Results</h4>
+           <div id="radar-chart" style="width: 100%; height: 500px; margin: 0 auto;"></div>
+           
+            <!-- 通用数据集评估结论 -->
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+              <h5 style="color: var(--text); margin-bottom: 16px; font-size: 16px; text-align: center;">💡 Evaluation Conclusions</h5>
+              <div class="grid grid-3" style="gap: 16px;">
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">📊 Document Understanding</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Qwen2.5-VL-32B excels in DocVQA (96.0) and OCRBench (51), showing superior document analysis capabilities</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🧠 Visual Reasoning</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Frontier-A1-VL demonstrates strong performance in VCR-EN-Easy (89) and MMBench (85), outperforming most open-source models</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🎯 Multi-task Performance</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Frontier-A1-VL achieves balanced performance across 15 datasets, with 20%+ improvement over autoregressive models</p>
+                </div>
+              </div>
+            </div>
+         </div>
+        
+
+        
+        <!-- Traffic Scenario Radar Chart -->
+         <div style="background: white; border-radius: 12px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+           <h4 style="margin: 0 0 20px 0; color: var(--primary-red); text-align: center;" id="traffic-radar">🚦 交通场景性能雷达图</h4>
+           <div id="traffic-radar-chart" style="width: 100%; height: 500px; margin: 0 auto;"></div>
+           
+            <!-- 交通场景评估结论 -->
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+              <h5 style="color: var(--text); margin-bottom: 16px; font-size: 16px; text-align: center;">💡 评估结论</h5>
+              <div class="grid grid-3" style="gap: 16px;">
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🚦 交通监控能力</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Qwen2.5-VL-32B在道路拥堵检测中表现最佳（75分），相比7B模型提升4分</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🔍 车牌识别性能</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Qwen2.5-VL-32B车牌检测达到81.3分，相比7B模型提升49分，大模型优势显著</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🏗️ 结构检测能力</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Frontier-A1-VL在桥梁结构损伤检测中表现稳定，但仍有提升空间</p>
+                </div>
+              </div>
+            </div>
+         </div>
+        
+        <!-- Energy Scenario Radar Chart -->
+         <div style="background: white; border-radius: 12px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+           <h4 style="margin: 0 0 20px 0; color: var(--primary-red); text-align: center;" id="energy-radar">⚡ 能源场景性能雷达图</h4>
+           <div id="energy-radar-chart" style="width: 100%; height: 500px; margin: 0 auto;"></div>
+           
+            <!-- 能源场景评估结论 -->
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+              <h5 style="color: var(--text); margin-bottom: 16px; font-size: 16px; text-align: center;">💡 评估结论</h5>
+              <div class="grid grid-3" style="gap: 16px;">
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🛢️ 井场检测能力</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Qwen2.5-VL-32B在井场车辆侵入检测中表现最佳（66分），相比7B模型提升28分</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">🔥 安全监测性能</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Qwen2.5-VL-32B火焰检测达到50.5分，相比7B模型提升12.5分，安全监测能力显著提升</p>
+                </div>
+                <div style="background: #f8fafc; border-radius: 8px; padding: 16px; border: 1px solid #e5e7eb;">
+                  <h6 style="margin: 0 0 8px 0; color: var(--primary-red); font-size: 14px;">⚠️ 管线检测挑战</h6>
+                  <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Frontier-A1-VL在管线漏油检测中表现稳定，但大部分管线场景检测任务需要补充数据</p>
+                </div>
+              </div>
+            </div>
+         </div>
+        
+
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary-red), transparent); margin: 60px auto; max-width: 200px; border-radius: 1px;"></div>
+    </section>
+  </div>
+
+  <script>
+    // 平滑滚动到锚点
+    function smoothScrollToAnchor(targetId) {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 80; // 考虑固定导航栏的高度
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+    
+    // 导航链接点击事件处理
+    document.addEventListener('DOMContentLoaded', function() {
+      // 为所有导航链接添加点击事件
+      const navLinks = document.querySelectorAll('.nav-menu a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          smoothScrollToAnchor(targetId);
+          
+          // 更新活动状态
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // 滚动时更新导航活动状态
+      window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + 100;
+        
+        // 找到当前滚动位置对应的部分
+        const sections = document.querySelectorAll('[id]');
+        let currentSection = '';
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentSection = section.id;
+          }
+        });
+        
+        // 更新导航活动状态
+        if (currentSection) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentSection) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+
+    // Global Carousel Variables and Functions
+    let carouselData = [];
+    let currentSlideIndex = 0;
+    let slides = [];
+    let dots = [];
+    let totalSlides = 0;
+
+
+
+    // Load carousel data from data.json
+    async function loadCarouselData() {
+      try {
+        console.log('Starting to load carousel data...');
+        // Try different paths in case of relative path issues
+        let response;
+        // 添加时间戳避免缓存
+        const timestamp = new Date().getTime();
+        const paths = [
+          `./data.json?t=${timestamp}`, 
+          `data.json?t=${timestamp}`, 
+          `/multimodal-site-v2/data.json?t=${timestamp}`
+        ];
+        
+        for (const path of paths) {
+          try {
+            console.log(`Trying to fetch from: ${path}`);
+            response = await fetch(path, {
+              cache: 'no-cache',
+              headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+              }
+            });
+            if (response.ok) {
+              console.log(`Successfully fetched from: ${path}`);
+              break;
+            }
+          } catch (e) {
+            console.log(`Failed to fetch from ${path}:`, e.message);
+          }
+        }
+        
+        if (!response || !response.ok) {
+          throw new Error(`Failed to load data.json from any path`);
+        }
+        const data = await response.json();
+        console.log('Raw data loaded:', data);
+        
+        // Convert data to array format and handle multiple items per key
+        carouselData = [];
+        Object.keys(data).forEach(key => {
+          // Handle both single items and arrays
+          const items = Array.isArray(data[key]) ? data[key] : [data[key]];
+          items.forEach(item => {
+            carouselData.push({
+              id: key,
+              ...item
+            });
+          });
+        });
+        
+        console.log(`Loaded ${carouselData.length} carousel items from data.json`);
+        console.log('Carousel data:', carouselData);
+        
+        // Update carousel with new data
+        updateCarousel();
+      } catch (error) {
+        console.error('Error loading carousel data:', error);
+        console.error('Error details:', error.message);
+        // Fallback to static content if loading fails
+        console.error('Falling back to static carousel content');
+        // 创建一个默认的静态轮播图以显示错误信息
+        const carouselContainer = document.querySelector('.carousel');
+        if (carouselContainer) {
+          carouselContainer.innerHTML = `
+            <div class="carousel-slide active">
+              <div class="carousel-content">
+                <h4 style="color: red;">⚠️ 数据加载失败</h4>
+                <p>无法加载 data.json 文件。请确保：</p>
+                <ul style="text-align: left;">
+                  <li>通过HTTP服务器访问页面（不是直接打开文件）</li>
+                  <li>data.json 文件存在于正确的位置</li>
+                  <li>检查浏览器控制台的错误信息</li>
+                </ul>
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Update carousel with dynamic data
+    function updateCarousel() {
+      const carouselContainer = document.querySelector('.carousel');
+      if (!carouselContainer) {
+        console.error('Carousel container not found!');
+        return;
+      }
+
+      console.log('Updating carousel with', carouselData.length, 'items');
+
+      // Clear existing slides
+      carouselContainer.innerHTML = '';
+
+      // Create slides from data
+      carouselData.forEach((item, index) => {
+        console.log(`Creating slide ${index} for:`, item);
+        const slide = createCarouselSlide(item, index);
+        carouselContainer.appendChild(slide);
+      });
+
+      // Update navigation dots
+      updateNavigationDots();
+      
+      // Reinitialize carousel functionality
+      initializeCarousel();
+      
+      // Start auto-play after initialization
+      startAutoPlay();
+      
+      console.log('Carousel update completed');
+    }
+
+    // Create a carousel slide from data
+    function createCarouselSlide(item, index) {
+      const slide = document.createElement('div');
+      slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+      
+      // 直接使用data.json中的ability字段值
+      const abilityName = item.ability;
+      const emojis = ['🔍', '🧠', '📊', '🔢', '🚦', '🌟', '📐'];
+      const emoji = emojis[index % emojis.length];
+      
+      // 确保文本正确显示（保留换行但避免XSS）
+      const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      };
+
+      slide.innerHTML = `
+        <div class="carousel-content">
+          <!-- Ability Tag -->
+          <h4 style="margin: 0 0 30px 0; color: var(--primary-red); text-align: center;">${emoji} ${abilityName}</h4>
+          
+          <!-- Input Image/Video -->
+          <div style="background: linear-gradient(135deg, #fef2f2, #fecaca); border-radius: 12px; padding: 24px; margin-bottom: 28px; border: 1px solid #fecaca;">
+            <h5 style="margin: 0 0 16px 0; color: var(--text); font-size: 14px; text-align: center;">📷 Image/Video</h5>
+            <div style="background: white; border-radius: 8px; padding: 16px; text-align: center; border: 1px solid #fecaca;">
+              ${
+                // 根据是否有视频路径或图片路径来决定显示什么
+                item.videos_path && item.videos_path.trim() !== '' 
+                ? `<video controls style="width: 100%; height: auto; max-height: 300px; border-radius: 8px; background: #f8fafc;">
+                     <source src="${item.videos_path}" type="video/mp4">
+                     <source src="${item.videos_path}" type="video/webm">
+                     <source src="${item.videos_path}" type="video/ogg">
+                     Your browser does not support the video tag.
+                   </video>`
+                : item.image_path && item.image_path.trim() !== ''
+                ? `<img src="${item.image_path}" alt="${abilityName} Image" style="width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 8px; background: #f8fafc;" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;div style=&quot;height: 200px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; background: #f8fafc; border-radius: 8px;&quot;&gt;[Media not found]&lt;/div&gt;'">`
+                : '<div style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; background: #f8fafc; border-radius: 8px;">[No media available]</div>'
+              }
+            </div>
+          </div>
+          
+          <!-- Question and Answer Vertical Layout -->
+          <div style="margin-bottom: 20px;">
+            <!-- Question -->
+            <div style="background: linear-gradient(135deg, #f0f9ff, #bae6fd); border-radius: 12px; padding: 16px; border: 1px solid #bae6fd; min-height: fit-content; margin-bottom: 12px;">
+              <h5 style="margin: 0 0 8px 0; color: var(--text); font-size: 14px; text-align: center;">❓ Question</h5>
+              <div style="background: white; border-radius: 8px; padding: 12px; border: 1px solid #bae6fd; height: auto; min-height: fit-content;">
+                <p style="margin: 0; color: var(--text); font-size: 13px; line-height: 1.6; text-align: left !important; white-space: pre-wrap; display: block; direction: ltr;">${escapeHtml(item.question)}</p>
+              </div>
+            </div>
+            
+            <!-- Answer -->
+            <div style="background: linear-gradient(135deg, #f0fdf4, #bbf7d0); border-radius: 12px; padding: 16px; border: 1px solid #bbf7d0; min-height: fit-content;">
+              <h5 style="margin: 0 0 8px 0; color: var(--text); font-size: 14px; text-align: center;">💡 Answer</h5>
+              <div style="background: white; border-radius: 8px; padding: 12px; border: 1px solid #bbf7d0; height: auto; min-height: fit-content;">
+                <p style="margin: 0; color: var(--text); font-size: 13px; line-height: 1.6; text-align: left !important; white-space: pre-wrap; display: block; direction: ltr;">${escapeHtml(item.answer)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return slide;
+    }
+
+    // Update navigation dots
+    function updateNavigationDots() {
+      const dotsContainer = document.querySelector('.carousel-dots');
+      if (!dotsContainer) return;
+
+      dotsContainer.innerHTML = '';
+      
+      carouselData.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.onclick = () => currentSlide(index + 1);
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // Initialize carousel functionality
+    function initializeCarousel() {
+      slides = document.querySelectorAll('.carousel-slide');
+      dots = document.querySelectorAll('.carousel-dot');
+      totalSlides = slides.length;
+      currentSlideIndex = 0;
+      
+      if (totalSlides > 0) {
+        showSlide(0);
+        
+        // 确保初始高度正确设置
+        const carousel = document.querySelector('.carousel');
+        if (carousel && slides[0]) {
+          setTimeout(() => {
+            const contentHeight = slides[0].scrollHeight;
+            carousel.style.height = contentHeight + 'px';
+          }, 300);
+        }
+      }
+    }
+
+    // Fallback to static carousel if data loading fails
+    function initializeStaticCarousel() {
+      slides = document.querySelectorAll('.carousel-slide');
+      dots = document.querySelectorAll('.carousel-dot');
+      totalSlides = slides.length;
+      currentSlideIndex = 0;
+      
+      if (totalSlides > 0) {
+        showSlide(0);
+      }
+    }
+
+    function showSlide(index) {
+      // Hide all slides
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      // Show current slide
+      if (slides[index]) {
+        slides[index].classList.add('active');
+        
+        // 调整轮播图容器高度以适应内容
+        const carousel = document.querySelector('.carousel');
+        if (carousel) {
+          // 等待动画完成后调整高度
+          setTimeout(() => {
+            const activeSlide = slides[index];
+            if (activeSlide) {
+              const contentHeight = activeSlide.scrollHeight;
+              carousel.style.height = contentHeight + 'px';
+            }
+          }, 100);
+        }
+      }
+      if (dots[index]) {
+        dots[index].classList.add('active');
+      }
+      
+      currentSlideIndex = index;
+    }
+
+    function changeSlide(direction) {
+      let newIndex = currentSlideIndex + direction;
+      
+      if (newIndex >= totalSlides) {
+        newIndex = 0;
+      } else if (newIndex < 0) {
+        newIndex = totalSlides - 1;
+      }
+      
+      showSlide(newIndex);
+    }
+
+    function currentSlide(index) {
+      showSlide(index - 1);
+    }
+
+    // Auto-advance slides every 60 seconds (only start after carousel is initialized)
+    let autoPlayInterval = null;
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => {
+        if (totalSlides > 0) {
+          changeSlide(1);
+        }
+      }, 60000);
+    }
+
+    // Initialize performance charts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM Content Loaded - Initializing...');
+      initPerformanceCharts();
+      // Load carousel data from data.json
+      loadCarouselData().then(() => {
+        console.log('Carousel data loading completed');
+      }).catch(error => {
+        console.error('Failed to load carousel data:', error);
+      });
+    });
+
+    // Performance Charts functionality
+    function initPerformanceCharts() {
+      // Model Performance Radar Chart
+      const radarElement = document.getElementById('radar-chart');
+      if (radarElement && typeof echarts !== 'undefined') {
+        const radarChart = echarts.init(radarElement);
+        
+        const radarChartData = {
+          indicators: [
+            { name: 'MEGA-Bench', max: 70 },
+            { name: 'MVBench', max: 80 },
+            { name: 'TextVQA', max: 90 },
+            { name: 'VCR-EN-Easy', max: 100 },
+            { name: 'MATH-Vision', max: 50 },
+            { name: 'MMBench', max: 100 },
+            { name: 'VideoMME', max: 90 },
+            { name: 'ChartQA', max: 90 },
+            { name: 'DocVQA', max: 100 },
+            { name: 'OCRBench', max: 90 },
+            { name: 'MMMU', max: 85 },
+            { name: 'MathVista', max: 85 },
+            { name: 'MMVet', max: 80 },
+            { name: 'MMSI-Bench', max: 40 },
+            { name: 'VSI-Bench', max: 50 },
+            { name: 'ERQA', max: 65 }
+          ],
+          series: [
+            {
+              name: 'Qwen2.5-VL-7B',
+              data: [36.8, 69.6, 79.83, 87.57, 25.8, 83, 61.55, 70.2, 94.98, 44.1, 58.6, 65, 73.07, 28.1, 22.77, 42.5]
+            },
+            {
+              name: 'Qwen2.5-VL-32B',
+              data: [45, 70, 85.24, 89.35, 39.2, 84.6, 75, 86.16, 96, 51, 70, 73, 75.23, 28.9, 24.5, 42.25]
+            },
+            {
+              name: 'FUDOKI-1.5B (step 128)',
+              data: [25, 50, 56, 60, 18, 70, 54, 64, 80, 30, 34.3, 45, 38, 31, 24.5, 33]
+            },
+            {
+              name: 'BAGEL-7B-MOT',
+              data: [34, 69, 79, 86, 25, 79.2, 65, 76, 92, 46, 43.2, 63.4, 48.2, 30.6, 26.38, 43.75]
+            },
+            {
+              name: 'InternVL3-9B',
+              data: [38, 74.3, 79.4, 94.2, 27.6, 86.5, 68.9, 86.2, 93.6, 42, 65.6, 75.2, 76.2, 29, 25, 50]
+            },
+            {
+              name: 'GLM-4.1V-9B-Thking',
+              data: [40, 75, 83, 94, 28, 85.2, 73.6, 87, 95, 45.8, 68, 45, 76, 30, 14.06, 40.5]
+            },
+            {
+              name: 'Cosmos-Reason1-7B',
+              data: [37, 67.22, 84.6, 83.44, 36.67, 80.06, 65, 75.8, 93.95, 45.1, 45.33, 65.2, 62, 15.9, 35.7, 38.8]
+            },
+            {
+              name: 'Gemini-2.5-Pro',
+              data: [64.66, 72, 73.4, 86.2, 25.3, 94, 51, 76.88, 92.5, 56.2, 81.7, 84.6, 75.6, 36.9, 44.66, 61.5]
+            },
+            {
+              name: 'Frontier-A1-VL(AR SFT)',
+              data: [0, 66.68, 80.79, 94.66, 18.095, 85.2, 51.96, 75, 81.77, 43.3, 43, 67.6, 62.80, 26, 36.52, 36.25]
+            },
+            {
+              name: 'Frontier-A1-VL(AR SFT v2)',
+              data: [0, 66.42, 81.82, 91.93, 19.26, 81.95, 74.6, 67.4, 43.3, 44.8, 46.8, 63.47, 61.28, 29, 48.61, 39.75]
+            }
+          ]
+        };
+        
+        const radarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: radarChartData.series.map(s => s.name),
+            right: 50,
+            top: 'middle',
+            orient: 'vertical',
+            itemGap: 15,
+            textStyle: {
+              color: '#1f2937'
+            }
+          },
+          radar: {
+            indicator: radarChartData.indicators,
+            radius: '85%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937'
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: 'Model Performance',
+            type: 'radar',
+            data: radarChartData.series.map(series => ({
+              value: series.data,
+              name: series.name
+            })),
+            areaStyle: {
+              opacity: 0.3
+            },
+            lineStyle: {
+              width: 2
+            },
+            itemStyle: {
+              color: function(params) {
+                const name = params.name;
+                if (name.includes('Qwen2.5-VL-7B')) return '#3b82f6';
+                if (name.includes('Qwen2.5-VL-32B')) return '#dc2626';
+                if (name.includes('FUDOKI-1.5B (step 128)')) return '#8B0000';
+                if (name.includes('BAGEL-7B-MOT')) return '#7c3aed';
+                if (name.includes('InternVL3-9B')) return '#f59e0b';
+                if (name.includes('GLM-4.1V-9B-Thking')) return '#06b6d4';
+                if (name.includes('Cosmos-Reason1-7B')) return '#8b5cf6';
+                if (name.includes('Gemini-2.5-Pro')) return '#ec4899';
+                if (name.includes('Frontier-A1-VL(AR SFT)')) return '#f97316';
+                if (name.includes('Frontier-A1-VL(AR SFT v2)')) return '#0d9488';
+                return '#94a3b8';
+              }
+            }
+          }]
+        };
+        
+        radarChart.setOption(radarOption);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          radarChart.resize();
+        });
+      }
+
+
+
+
+
+
+
+      // Traffic Scenario Radar Chart
+      const trafficRadarElement = document.getElementById('traffic-radar-chart');
+      if (trafficRadarElement && typeof echarts !== 'undefined') {
+        const trafficRadarChart = echarts.init(trafficRadarElement);
+        
+        // 准备雷达图指标
+        const trafficIndicators = [
+          { name: '交通违停', max: 100 },
+          { name: '占用应急车道', max: 100 },
+          { name: '道路拥堵', max: 100 },
+          { name: '逆行', max: 100 },
+          { name: '占道施工', max: 100 },
+          { name: '非机动车闯入', max: 100 },
+          { name: '道路护栏损坏', max: 100 },
+          { name: '人', max: 100 },
+          { name: '机动车', max: 100 },
+          { name: '工程车', max: 100 },
+          { name: '船', max: 100 },
+          { name: '车牌检测', max: 100 },
+          { name: '路边护栏', max: 100 },
+          { name: '损伤检测', max: 100 },
+          { name: '桥梁', max: 100 },
+          { name: '护栏', max: 100 },
+          { name: '桥墩', max: 100 },
+          { name: '路面抛洒物', max: 100 },
+          { name: '路面裂缝', max: 100 },
+          { name: '路面坑洼', max: 100 },
+          { name: '路面积水', max: 100 },
+          { name: '山体滑坡', max: 100 },
+          { name: '雪糕筒', max: 100 }
+        ];
+
+        // 准备数据 (根据result.html中的实际交通场景数据更新)
+        const trafficRadarData = [
+          {
+            name: 'Frontier-A1-VL(AR Agent)',
+            value: [72.60, 72.60, 75, 91.17, 88.17, 70.76, 86.01, 73.20, 91.32, 64.43, 89.21, 97.50, 79.21, 
+                    83.10, 58.6515, 56.5816, 49.6241, 89.36, 87.82, 92.30, 89.94, 85.79, 72.05]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v3)',
+            value: [24.21, 38.17, 0, 34.99, 78.26, 26.68, 26.19, 9.83, 55.19, 32.60, 33.35, 89.66, 20.48, 
+                    10.62, 1.67, 24.28, 12.67, 64.60, 53.90, 60.73, 82.05, 42.81, 0.27]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v2)',
+            value: [24.41, 9.29, 0, 30.98, 82.61, 58.79, 13.10, 8.19, 44.37, 17.34, 26.12, 13.30, 12.20, 
+                    18.18, 3.89, 23.06, 17.40, 61.75, 39.30, 21.26, 79.64, 62.46, 0.00]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT)',
+            value: [2.43, 1.79, 0, 12.68, 71.74, 16.30, 28.57, 3.79, 15.00, 14.50, 0, 1.32, 7.89, 
+                    0, 3.33, 20.83, 10.67, 8.57, 3.70, 13.42, 55.46, 22.11, 0.00]
+          },
+          {
+            name: 'Qwen2.5-VL-7B',
+            value: [8.76, 0, 0, 0, 70.29, 31.43, 27.98, 14.19, 40.00, 23.67, 28.23, 76.15, 10.53, 
+                    11.47, 3.33, 28.61, 21.92, 31.49, 19.96, 10.75, 77.23, 30.53, 0]
+          },
+          {
+            name: 'Qwen2.5-VL-32B',
+            value: [24, 7.7, 75, 15.3, 75.6, 39.5, 54.9, 11, 43.8, 30, 43.8, 81.3, 14.2, 
+                    0, 9.6, 45.5, 75.6, 18, 7, 17.5, 60.8, 40, 1.4]
+          },
+          {
+            name: 'FUDOKI-1.5B',
+            value: new Array(23).fill(0) // 所有值为0
+          },
+          {
+            name: 'Cosmos-Reason1-7B',
+            value: [7.38, 5.89, 0, 6.24, 68.12, 24.12, 24.40, 6.09, 28.06, 22.79, 23.31, 11.57, 9.70, 
+                    9.57, 5.00, 30.83, 12.13, 30.20, 6.38, 41.95, 63.46, 31.23, 0.00]
+          },
+          {
+            name: 'Gemini-2.5-Pro',
+            value: [0.00, 0.00, 0.00, 0.00, 42.03, 14.29, 0.00, 0.04, 0.71, 2.50, 0.00, 0.00, 3.17, 3.27, 0.00, 0.00, 0.00, 0.00, 6.17, 3.52, 28.56, 26.32, 0.00]
+          },
+          {
+            name: 'Qwen-VL-Plus(阿里专供)',
+            value: [27.18, 5.95, 0, 7.14, 60.14, 3.86, 24.40, 10.14, 37.89, 19.91, 4.91, 0.00, 13.86, 8.66, 4.44, 31.67, 26.64, 35.64, 15.02, 15.60, 82.90, 50.88, 0.00]
+          }
+        ];
+
+        const trafficRadarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: ['Frontier-A1-VL(AR Agent)', 'Frontier-A1-VL(AR SFT v3)', 'Frontier-A1-VL(AR SFT v2)', 'Frontier-A1-VL(AR SFT)', 'Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B', 'Cosmos-Reason1-7B', 'Gemini-2.5-Pro', 'Qwen-VL-Plus(阿里专供)'],
+            right: 20,
+            top: 'middle',
+            orient: 'vertical',
+            itemGap: 10,
+            textStyle: {
+              fontSize: 10
+            }
+          },
+          radar: {
+            indicator: trafficIndicators,
+            radius: '85%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937',
+              fontSize: 11
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: '交通场景性能',
+            type: 'radar',
+            data: trafficRadarData.map(item => ({
+              value: item.value,
+              name: item.name,
+              areaStyle: {
+                opacity: 0.3
+              },
+              lineStyle: {
+                width: 2
+              }
+            })),
+            itemStyle: {
+              color: function(params) {
+                const colors = [
+                  '#DC143C', // Frontier-A1-VL(AR Agent) - 深红色
+                  '#8B008B', // Frontier-A1-VL(AR SFT v3) - 深洋红紫
+                  '#4682B4', // Frontier-A1-VL(AR SFT v2) - 钢蓝色
+                  '#f97316', // Frontier-A1-VL(AR SFT) - 橙色
+                  '#3b82f6', // Qwen2.5-VL-7B - 蓝色
+                  '#FF7F50', // Qwen2.5-VL-32B - 珊瑚橙
+                  '#B22222', // FUDOKI-1.5B - 火砖红
+                  '#2E8B57', // Cosmos-Reason1-7B - 海绿色
+                  '#FFD700', // Gemini-2.5-Pro - 金色
+                  '#4B0082'  // Qwen-VL-Plus(阿里专供) - 靛青
+                ];
+                return colors[params.dataIndex];
+              }
+            }
+          }]
+        };
+
+        trafficRadarChart.setOption(trafficRadarOption);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          trafficRadarChart.resize();
+        });
+      }
+
+      // Energy Scenario Radar Chart
+      const energyRadarElement = document.getElementById('energy-radar-chart');
+      if (energyRadarElement && typeof echarts !== 'undefined') {
+        const energyRadarChart = echarts.init(energyRadarElement);
+        
+        // 准备雷达图指标
+        const energyIndicators = [
+          { name: '管线漏油', max: 100 },
+          { name: '管道裸露', max: 80 },
+          { name: '盗油', max: 80 },
+          { name: '管线占压', max: 80 },
+          { name: '管道塌方', max: 80 },
+          { name: '磕头机', max: 80 },
+          { name: '驴头', max: 80 },
+          { name: '磕头机轴承', max: 80 },
+          { name: '油箱', max: 80 },
+          { name: '储油罐', max: 80 },
+          { name: '井场驴头抽停', max: 100 },
+          { name: '井场漏油', max: 100 },
+          { name: '井场火焰', max: 80 },
+          { name: '井场烟雾', max: 80 },
+          { name: '井场人员侵入', max: 80 },
+          { name: '井场车辆侵入', max: 80 },
+          { name: '场站火焰检测', max: 80 },
+          { name: '场站烟雾检测', max: 80 },
+          { name: '场站人员入侵', max: 80 },
+          { name: '场站车辆入侵', max: 80 }
+        ];
+
+        // 准备数据
+        const energyRadarData = [
+          {
+            name: 'Frontier-A1-VL(AR Agent)',
+            value: [93.93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92.30, 81.38, 0, 0, 0, 0, 0, 0, 0, 0]
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT v2)',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Frontier-A1-VL(AR SFT)',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Qwen2.5-VL-7B',
+            value: [12.7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.76, 11.6, 38, 16.1, 23.3, 60.1, 38, 16.1, 23.3, 60.1]
+          },
+          {
+            name: 'Qwen2.5-VL-32B',
+            value: [24.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 47.62, 18.7, 50.5, 16.8, 22.4, 66, 50.5, 16.8, 22.4, 66]
+          },
+          {
+            name: 'FUDOKI-1.5B',
+            value: new Array(20).fill(0) // 所有值为0
+          },
+          {
+            name: 'Cosmos-Reason1-7B',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'BAGEL-7B-MOT',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'InternVL3-9B',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'GLM-4.1V-9B-Thinking',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Gemini-2.5-Pro',
+            value: new Array(20).fill(0) // 暂无数据
+          },
+          {
+            name: 'Qwen-VL-Plus(阿里专供)',
+            value: new Array(20).fill(0) // 暂无数据
+          }
+        ];
+
+        const energyRadarOption = {
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            data: ['Frontier-A1-VL(AR Agent)', 'Frontier-A1-VL(AR SFT v2)', 'Frontier-A1-VL(AR SFT)', 'Qwen2.5-VL-7B', 'Qwen2.5-VL-32B', 'FUDOKI-1.5B', 'Cosmos-Reason1-7B', 'BAGEL-7B-MOT', 'InternVL3-9B', 'GLM-4.1V-9B-Thinking', 'Gemini-2.5-Pro', 'Qwen-VL-Plus(阿里专供)'],
+            right: 20,
+            top: 'middle',
+            orient: 'vertical',
+            textStyle: {
+              fontSize: 10
+            },
+            itemGap: 8
+          },
+          radar: {
+            indicator: energyIndicators,
+            radius: '80%',
+            center: ['40%', '50%'],
+            axisName: {
+              color: '#1f2937',
+              fontSize: 11
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#e5e7eb'
+              }
+            },
+            splitArea: {
+              show: false
+            }
+          },
+          series: [{
+            name: '能源场景性能',
+            type: 'radar',
+            data: energyRadarData.map(item => ({
+              value: item.value,
+              name: item.name,
+              areaStyle: {
+                opacity: 0.3
+              },
+              lineStyle: {
+                width: 2
+              }
+            })),
+            itemStyle: {
+              color: function(params) {
+                const colors = [
+                  '#DC143C', // Frontier-A1-VL(AR Agent) - 深红色
+                  '#8B008B', // Frontier-A1-VL(AR SFT v2) - 深洋红紫
+                  '#4682B4', // Frontier-A1-VL(AR SFT) - 钢蓝色
+                  '#696969', // Qwen2.5-VL-7B - 暗灰色
+                  '#FF7F50', // Qwen2.5-VL-32B - 珊瑚橙
+                  '#B22222', // FUDOKI-1.5B - 火砖红
+                  '#2E8B57', // Cosmos-Reason1-7B - 海绿色
+                  '#FF8C00', // BAGEL-7B-MOT - 深橙色
+                  '#4169E1', // InternVL3-9B - 皇家蓝
+                  '#FF1493', // GLM-4.1V-9B-Thinking - 深粉红
+                  '#FFD700', // Gemini-2.5-Pro - 金色
+                  '#4B0082'  // Qwen-VL-Plus(阿里专供) - 靛青
+                ];
+                return colors[params.dataIndex];
+              }
+            }
+          }]
+        };
+
+        energyRadarChart.setOption(energyRadarOption);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          energyRadarChart.resize();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
