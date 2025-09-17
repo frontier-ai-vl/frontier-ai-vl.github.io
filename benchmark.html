@@ -782,26 +782,12 @@
         <div id="industry-mindmap-container"></div>
         
         <!-- Industry Datasets Questions Distribution Pie Chart -->
-        <div style="text-align: center; margin-top: 50px;">
-          <h4 style="margin-bottom: 50px; color: var(--primary-red);">行业评测集问题分布</h4>
-          <div style="margin-bottom: 60px; display: flex; align-items: center; justify-content: space-between; max-width: 720px; margin-left: auto; margin-right: auto;">
-            <div style="display: flex; gap: 10px;">
-              <button id="industry-back-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; display: none;">
-                ← 返回
-              </button>
-              <button id="industry-reset-btn" style="padding: 8px 16px; background: var(--primary-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
-                重置视图
-              </button>
-            </div>
-            <span id="industry-current-level" style="color: var(--muted); font-size: 14px;">当前级别: 主分类</span>
-          </div>
-          <div id="industry-pie-chart" style="width: 720px; height: 420px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;"></div>
-          <p style="margin-top: 15px; color: var(--muted); font-size: 14px; font-style: italic;">
-            <svg style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-            </svg>
-            点击饼图的任何部分查看详细数据。
+        <div style="margin-top: 40px;">
+          <h4 style="margin: 0 0 10px 0; color: var(--primary-red); font-size: 18px; text-align: center;">📊 行业评测集问题分布</h4>
+          <p style="margin: 0 0 20px 0; color: #6b7280; font-size: 14px; text-align: center;">
+            💡 点击饼图扇形可查看对应类别的详细子分类
           </p>
+          <div id="industry-pie-chart" style="width: 100%; height: 500px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative;"></div>
         </div>
       </div>
     </div>

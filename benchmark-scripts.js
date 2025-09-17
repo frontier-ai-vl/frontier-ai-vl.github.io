@@ -162,6 +162,14 @@ function updatePieChart() {
     item.color || getRandomColor()
   );
   
+  // 自定义插件：在动画完成后绘制外部标签
+  const externalLabelsPlugin = {
+    id: 'externalLabels',
+    afterDraw: function(chart) {
+      addBenchmarkExternalLabels(canvas, chart, labels, values, colors);
+    }
+  };
+  
   // 创建图表
   pieChart = new Chart(canvas, {
     type: 'pie',
@@ -175,35 +183,22 @@ function updatePieChart() {
         hoverOffset: 10
       }]
     },
-    plugins: [ChartDataLabels],
+    plugins: [externalLabelsPlugin],
     options: {
       responsive: true,
       maintainAspectRatio: false,
       devicePixelRatio: 2, // 提高渲染清晰度
       layout: {
         padding: {
-          left: 30,
-          right: 30,
-          top: 20,
-          bottom: 20
+          left: 45,
+          right: 45,
+          top: 75,
+          bottom: 60
         }
       },
       plugins: {
         legend: {
-          position: 'right',
-          align: 'middle',
-          labels: {
-            padding: 18,
-            boxWidth: 18,
-            boxHeight: 18,
-            font: {
-              size: 15,
-              family: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-              weight: '500'
-            },
-            usePointStyle: true,
-            pointStyle: 'circle'
-          }
+          display: false  // 隐藏图例
         },
         tooltip: {
           callbacks: {
@@ -217,40 +212,144 @@ function updatePieChart() {
           }
         },
         datalabels: {
-          display: true,
-          color: '#ffffff',
-          font: {
-            weight: '600',
-            size: 14,
-            family: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-          },
-          formatter: function(value, context) {
-            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-            const label = context.chart.data.labels[context.dataIndex];
-            // 如果标签太长，截断并添加省略号
-            const shortLabel = label.length > 15 ? label.substring(0, 12) + '...' : label;
-            return shortLabel + '\n' + percentage + '%';
-          },
-          textAlign: 'center',
-          offset: 0,
-          // 仅在扇区足够大时显示标签
-          display: function(context) {
-            const value = context.dataset.data[context.dataIndex];
-            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = (value / total) * 100;
-            return percentage > 5; // 只有占比大于5%的扇区才显示标签
-          }
+          display: false  // 禁用内部标签，使用外部标签
         }
       },
       animation: {
         animateScale: true,
         animateRotate: true,
         duration: 500,
-        easing: 'easeOutQuart'
+        easing: 'easeOutQuart',
+        onComplete: function() {
+          // 动画完成后绘制外部标签
+          setTimeout(() => {
+            addBenchmarkExternalLabels(canvas, pieChart, labels, values, colors);
+          }, 50);
+        }
       },
       onClick: handleChartClick
     }
+  });
+}
+
+// 添加通用评测集的外部标签和连接线
+function addBenchmarkExternalLabels(canvas, chart, labels, values, colors) {
+  const ctx = canvas.getContext('2d');
+  const chartArea = chart.chartArea;
+  const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
+  const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
+  const outerRadius = Math.min(chartArea.right - chartArea.left, chartArea.bottom - chartArea.top) / 2;
+  
+  // 计算总数据
+  const total = values.reduce((a, b) => a + b, 0);
+  
+  // 设置字体以计算文本尺寸
+  ctx.font = '13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+  
+  // 预计算所有标签位置，避免重叠
+  const labelPositions = [];
+  let currentAngle = -Math.PI / 2; // 从顶部开始
+  
+  // 第一遍：计算所有标签的基本位置
+  values.forEach((value, index) => {
+    const percentage = (value / total) * 100;
+    const sliceAngle = (value / total) * 2 * Math.PI;
+    const midAngle = currentAngle + sliceAngle / 2;
+    
+    const labelText = `${labels[index]}: ${Math.round(percentage)}%`;
+    const labelWidth = ctx.measureText(labelText).width + 10;
+    const labelHeight = 20;
+    
+    const labelRadius = outerRadius + 25;  // 进一步减少标签距离，因为饼图又增大了20%
+    const endX = centerX + Math.cos(midAngle) * labelRadius;
+    const endY = centerY + Math.sin(midAngle) * labelRadius;
+    
+    let labelX, labelY;
+    if (Math.cos(midAngle) >= 0) {
+      labelX = endX + 5;
+      labelY = endY - labelHeight / 2;
+    } else {
+      labelX = endX - labelWidth - 5;
+      labelY = endY - labelHeight / 2;
+    }
+    
+    labelPositions.push({
+      index,
+      midAngle,
+      labelX,
+      labelY,
+      labelWidth,
+      labelHeight,
+      labelText,
+      percentage,
+      startX: centerX + Math.cos(midAngle) * outerRadius,
+      startY: centerY + Math.sin(midAngle) * outerRadius,
+      endX,
+      endY
+    });
+    
+    currentAngle += sliceAngle;
+  });
+  
+  // 第二遍：调整重叠的标签位置
+  for (let i = 0; i < labelPositions.length; i++) {
+    for (let j = i + 1; j < labelPositions.length; j++) {
+      const pos1 = labelPositions[i];
+      const pos2 = labelPositions[j];
+      
+      // 检查是否重叠
+      const overlap = !(pos1.labelX + pos1.labelWidth < pos2.labelX || 
+                       pos2.labelX + pos2.labelWidth < pos1.labelX ||
+                       pos1.labelY + pos1.labelHeight < pos2.labelY ||
+                       pos2.labelY + pos2.labelHeight < pos1.labelY);
+      
+      if (overlap) {
+        // 调整第二个标签的位置
+        const offset = 25;
+        if (pos2.midAngle > pos1.midAngle && pos2.midAngle - pos1.midAngle < Math.PI) {
+          // 第二个标签在第一个的顺时针方向
+          pos2.labelY = pos1.labelY + pos1.labelHeight + 5;
+          // 延长引线
+          pos2.labelRadius = outerRadius + 40 + (j - i) * 10;  // 配合增大20%的饼图
+          pos2.endX = centerX + Math.cos(pos2.midAngle) * pos2.labelRadius;
+          pos2.endY = centerY + Math.sin(pos2.midAngle) * pos2.labelRadius;
+          if (Math.cos(pos2.midAngle) >= 0) {
+            pos2.labelX = pos2.endX + 5;
+          } else {
+            pos2.labelX = pos2.endX - pos2.labelWidth - 5;
+          }
+        }
+      }
+    }
+  }
+  
+  // 第三遍：绘制所有标签和连接线
+  labelPositions.forEach((pos) => {
+    // 绘制连接线
+    ctx.strokeStyle = colors[pos.index];
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pos.startX, pos.startY);
+    
+    // 绘制折线
+    const midX = pos.startX + (pos.endX - pos.startX) * 0.7;
+    const midY = pos.startY + (pos.endY - pos.startY) * 0.7;
+    ctx.lineTo(midX, midY);
+    ctx.lineTo(pos.endX, pos.endY);
+    
+    // 水平延伸线
+    const extendX = Math.cos(pos.midAngle) >= 0 ? pos.endX + 15 : pos.endX - 15;
+    ctx.lineTo(extendX, pos.endY);
+    ctx.stroke();
+    
+    // 绘制标签文字
+    ctx.fillStyle = '#1f2937'; // 深灰色文字
+    ctx.font = '13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    ctx.textAlign = Math.cos(pos.midAngle) >= 0 ? 'left' : 'right';
+    ctx.textBaseline = 'middle';
+    
+    const textX = Math.cos(pos.midAngle) >= 0 ? extendX + 5 : extendX - 5;
+    ctx.fillText(pos.labelText, textX, pos.endY);
   });
 }
 
@@ -1843,11 +1942,317 @@ function resetIndustryZoom() {
 window.addEventListener('load', () => {
   setTimeout(() => {
     initIndustryMindmap();
-    initIndustryPieChart();
+    initIndustryEChartsPieChart();
   }, 200);
 });
 
-// ===================== Industry Benchmark Pie Chart =====================
+// ===================== Industry Benchmark ECharts Pie Chart =====================
+
+// Industry benchmark hierarchical data structure for ECharts
+const industryEChartsData = [
+  {
+    value: 1899,
+    name: '交通',
+    itemStyle: { color: '#5B8FF9' },  // 蓝色系主色
+    subcategories: [
+      {
+        name: '交管',
+        value: 1039,
+        color: '#5B8FF9',
+        subcategories: [
+          { name: '交通违停', value: 198, color: '#5B8FF9' },
+          { name: '占用应急车道', value: 56, color: '#61DDAA' },
+          { name: '道路拥堵', value: 13, color: '#65789B' },
+          { name: '逆行', value: 42, color: '#F6BD16' },
+          { name: '占道施工', value: 46, color: '#7262FD' },
+          { name: '非机动车闯入', value: 60, color: '#78D3F8' },
+          { name: '护栏损坏', value: 56, color: '#9661BC' },
+          { name: '人员检测', value: 100, color: '#F6903D' },
+          { name: '机动车检测', value: 100, color: '#008685' },
+          { name: '工程车检测', value: 100, color: '#F08BB4' },
+          { name: '船只检测', value: 112, color: '#FFB6C1' },
+          { name: '车牌检测', value: 100, color: '#87CEEB' },
+          { name: '路边护栏', value: 56, color: '#DDA0DD' }
+        ]
+      },
+      {
+        name: '路面/山体异常',
+        value: 580,
+        color: '#61DDAA',  // 青绿色
+        subcategories: [
+          { name: '路面抛洒物', value: 50, color: '#FFE4B5' },
+          { name: '路面裂缝', value: 81, color: '#F4A460' },
+          { name: '路面坑洼', value: 116, color: '#DEB887' },
+          { name: '路面积水', value: 116, color: '#D2691E' },
+          { name: '山体滑坡', value: 95, color: '#CD853F' },
+          { name: '边坡滑坡', value: 95, color: '#BC8F8F' },
+          { name: '雪糕筒', value: 27, color: '#F0E68C' }
+        ]
+      },
+      {
+        name: '桥梁',
+        value: 280,
+        color: '#7262FD',  // 紫色
+        subcategories: [
+          { name: '桥梁损伤', value: 100, color: '#E6E6FA' },
+          { name: '桥梁梁体', value: 60, color: '#DDA0DD' },
+          { name: '桥梁护栏', value: 60, color: '#DA70D6' },
+          { name: '桥梁桥墩', value: 60, color: '#BA55D3' }
+        ]
+      }
+    ]
+  },
+  {
+    value: 1947,
+    name: '能源',
+    itemStyle: { color: '#F6BD16' },  // 金黄色主色
+    subcategories: [
+      {
+        name: '管道',
+        value: 271,
+        color: '#F6903D',  // 橙色
+        subcategories: [
+          { name: '管道占压', value: 20, color: '#FFDAB9' },
+          { name: '沿线塌方', value: 15, color: '#FFB6C1' },
+          { name: '打孔盗油', value: 107, color: '#FFA07A' },
+          { name: '管道漏油', value: 109, color: '#FA8072' },
+          { name: '管道裸露', value: 20, color: '#F08080' }
+        ]
+      },
+      {
+        name: '井场',
+        value: 690,
+        color: '#008685',  // 深青色
+        subcategories: [
+          { name: '井场盘根漏油', value: 100, color: '#B0E0E6' },
+          { name: '井场井口池漏油', value: 100, color: '#87CEEB' },
+          { name: '井场驴头抽停', value: 100, color: '#87CEFA' },
+          { name: '井场火焰检测', value: 116, color: '#00CED1' },
+          { name: '井场烟雾检测', value: 116, color: '#48D1CC' },
+          { name: '井场人员侵入', value: 107, color: '#40E0D0' },
+          { name: '井场车辆侵入', value: 107, color: '#00BFFF' },
+          { name: '磕头机检测', value: 100, color: '#5F9EA0' },
+          { name: '驴头检测', value: 100, color: '#4682B4' },
+          { name: '磕头机减速箱', value: 100, color: '#6495ED' },
+          { name: '磕头机保温箱', value: 100, color: '#7B68EE' },
+          { name: '储油罐检测', value: 25, color: '#6A5ACD' }
+        ]
+      },
+      {
+        name: '场站',
+        value: 446,
+        color: '#F08BB4',  // 粉红色
+        subcategories: [
+          { name: '场站火焰检测', value: 116, color: '#FFE4E1' },
+          { name: '场站烟雾检测', value: 116, color: '#FFC0CB' },
+          { name: '场站人员侵入', value: 107, color: '#FFB6C1' },
+          { name: '场站车辆侵入', value: 107, color: '#FFA07A' }
+        ]
+      }
+    ]
+  }
+];
+
+// ECharts variables
+let industryEChartsInstance = null;
+let currentIndustryEChartsData = industryEChartsData;
+let currentIndustryEChartsTitle = '行业评测集问题分布';
+let currentIndustryEChartsCategory = null;
+
+// Initialize industry ECharts pie chart
+function initIndustryEChartsPieChart() {
+  const chartDom = document.getElementById('industry-pie-chart');
+  if (!chartDom) return;
+  
+  industryEChartsInstance = echarts.init(chartDom);
+  updateIndustryEChartsChart();
+  
+  // Add click event
+  industryEChartsInstance.on('click', function (params) {
+    if (!currentIndustryEChartsCategory) {
+      // Click main category, enter subcategory view
+      const clickedCategory = industryEChartsData.find(item => item.name === params.name);
+      if (clickedCategory && clickedCategory.subcategories) {
+        currentIndustryEChartsCategory = params.name;
+        currentIndustryEChartsTitle = `${params.name} - 子分类`;
+        currentIndustryEChartsData = clickedCategory.subcategories.map(sub => ({
+          value: sub.value,
+          name: sub.name,
+          itemStyle: { color: sub.color },
+          subcategories: sub.subcategories
+        }));
+        updateIndustryEChartsChart();
+      }
+    } else {
+      // Click subcategory, if has third level subcategories then enter third level view
+      const parentCategory = industryEChartsData.find(item => item.name === currentIndustryEChartsCategory);
+      if (parentCategory && parentCategory.subcategories) {
+        const clickedSubcategory = parentCategory.subcategories.find(sub => sub.name === params.name);
+        if (clickedSubcategory && clickedSubcategory.subcategories) {
+          currentIndustryEChartsTitle = `${currentIndustryEChartsCategory} - ${params.name} - 详细分类`;
+          currentIndustryEChartsData = clickedSubcategory.subcategories.map(sub => ({
+            value: sub.value,
+            name: sub.name,
+            itemStyle: { color: sub.color }
+          }));
+          updateIndustryEChartsChart();
+        }
+      }
+    }
+  });
+  
+  // Add back button
+  const backButton = document.createElement('button');
+  backButton.innerHTML = '← 返回主视图';
+  backButton.style.cssText = `
+    padding: 8px 16px;
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: none;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+  `;
+  
+  backButton.addEventListener('mouseenter', function() {
+    this.style.background = '#dc2626';
+    this.style.transform = 'translateY(-1px)';
+  });
+  
+  backButton.addEventListener('mouseleave', function() {
+    this.style.background = 'var(--primary-red)';
+    this.style.transform = 'translateY(0)';
+  });
+  
+  backButton.addEventListener('click', function() {
+    if (currentIndustryEChartsTitle.includes(' - 详细分类')) {
+      // From third level back to second level
+      const parentCategory = industryEChartsData.find(item => item.name === currentIndustryEChartsCategory);
+      if (parentCategory && parentCategory.subcategories) {
+        currentIndustryEChartsTitle = `${currentIndustryEChartsCategory} - 子分类`;
+        currentIndustryEChartsData = parentCategory.subcategories.map(sub => ({
+          value: sub.value,
+          name: sub.name,
+          itemStyle: { color: sub.color },
+          subcategories: sub.subcategories
+        }));
+        updateIndustryEChartsChart();
+      }
+    } else {
+      // From second level back to main level
+      currentIndustryEChartsCategory = null;
+      currentIndustryEChartsTitle = '行业评测集问题分布';
+      currentIndustryEChartsData = industryEChartsData;
+      updateIndustryEChartsChart();
+      backButton.style.display = 'none';
+    }
+  });
+
+  // Add back button to chart container
+  const chartContainer = chartDom.parentNode;
+  const titleElement = chartContainer.querySelector('h4');
+  if (titleElement) {
+    chartContainer.insertBefore(backButton, titleElement);
+  } else {
+    chartContainer.insertBefore(backButton, chartContainer.firstChild);
+  }
+
+  // Listen for chart state changes, show/hide back button
+  const originalSetOption = industryEChartsInstance.setOption;
+  industryEChartsInstance.setOption = function(option) {
+    const result = originalSetOption.call(this, option);
+    if (currentIndustryEChartsCategory) {
+      backButton.style.display = 'inline-block';
+      // Update back button text
+      if (currentIndustryEChartsTitle.includes(' - 详细分类')) {
+        backButton.innerHTML = '← 返回子分类';
+      } else {
+        backButton.innerHTML = '← 返回主视图';
+      }
+    } else {
+      backButton.style.display = 'none';
+    }
+    return result;
+  };
+
+  // Responsive adjustment
+  window.addEventListener('resize', () => {
+    industryEChartsInstance.resize();
+  });
+  
+  console.log('Industry ECharts pie chart initialized successfully');
+}
+
+// Update industry ECharts chart
+function updateIndustryEChartsChart() {
+  if (!industryEChartsInstance) return;
+  
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c} ({d}%)',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      borderColor: '#e5e7eb',
+      borderWidth: 1,
+      textStyle: {
+        color: '#1f2937'
+      }
+    },
+    // Remove legend - directly show text next to percentages
+    legend: {
+      show: false
+    },
+    series: [
+      {
+        name: '行业评测集',
+        type: 'pie',
+        radius: '70%',
+        center: ['50%', '50%'],
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderRadius: 8,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '{b}: {d}%',  // Show both name and percentage
+          fontSize: 14,
+          color: '#1f2937',
+          fontWeight: '500'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '16',
+            fontWeight: 'bold',
+            color: '#1f2937'
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        },
+        labelLine: {
+          show: true,
+          length: 20,
+          length2: 15,
+          smooth: true
+        },
+        data: currentIndustryEChartsData
+      }
+    ]
+  };
+
+  industryEChartsInstance.setOption(option);
+}
+
+// ===================== Legacy Industry Benchmark Pie Chart (Chart.js) =====================
 
 // Industry benchmark hierarchical data structure
 const industryBenchmarkData = {
@@ -1979,13 +2384,13 @@ function initIndustryPieChart() {
   const dpr = window.devicePixelRatio || 1;
   const rect = pieElement.getBoundingClientRect();
   
-  // Set display size (css pixels)
-  canvas.style.width = '720px';
-  canvas.style.height = '420px';
+  // Set display size (css pixels) - 增大尺寸，减少上间距
+  canvas.style.width = '600px';
+  canvas.style.height = '550px';
   
   // Set actual size in memory (scaled up for high DPI)
-  canvas.width = 720 * dpr;
-  canvas.height = 420 * dpr;
+  canvas.width = 600 * dpr;
+  canvas.height = 550 * dpr;
   
   // Scale the drawing context to match device pixel ratio
   const ctx = canvas.getContext('2d');
@@ -2020,7 +2425,15 @@ function updateIndustryPieChart() {
     item.color || getRandomColor()
   );
   
-  // Chart configuration
+  // 自定义插件：在动画完成后绘制外部标签
+  const externalLabelsPlugin = {
+    id: 'externalLabels',
+    afterDraw: function(chart) {
+      addExternalLabelsWithConnectors(canvas, chart, labels, values, colors);
+    }
+  };
+
+  // Chart configuration for pie chart with connector lines
   const config = {
     type: 'pie',
     data: {
@@ -2030,45 +2443,31 @@ function updateIndustryPieChart() {
         backgroundColor: colors,
         borderColor: '#ffffff',
         borderWidth: 2
+        // 去掉cutout属性，创建实心饼图
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        onComplete: function() {
+          // 动画完成后绘制外部标签
+          setTimeout(() => {
+            addExternalLabelsWithConnectors(canvas, industryPieChart, labels, values, colors);
+          }, 50);
+        }
+      },
+      layout: {
+        padding: {
+          left: 120,
+          right: 120,
+          top: 30,
+          bottom: 80
+        }
+      },
       plugins: {
         legend: {
-          position: 'right',
-          labels: {
-            padding: 18,
-            boxWidth: 16,
-            boxHeight: 16,
-            font: {
-              size: 15,
-              family: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-              weight: '500'
-            },
-            generateLabels: function(chart) {
-              const data = chart.data;
-              if (data.labels.length && data.datasets.length) {
-                return data.labels.map((label, i) => {
-                  const dataset = data.datasets[0];
-                  const value = dataset.data[i];
-                  const total = dataset.data.reduce((a, b) => a + b, 0);
-                  const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                  
-                  return {
-                    text: `${label}: ${value} (${percentage}%)`,
-                    fillStyle: dataset.backgroundColor[i],
-                    strokeStyle: dataset.borderColor,
-                    lineWidth: dataset.borderWidth,
-                    hidden: false,
-                    index: i
-                  };
-                });
-              }
-              return [];
-            }
-          }
+          display: false // 隐藏图例，因为我们使用外部标签
         },
         tooltip: {
           callbacks: {
@@ -2082,38 +2481,126 @@ function updateIndustryPieChart() {
           }
         },
         datalabels: {
-          color: '#ffffff',
-          font: {
-            weight: '600',
-            size: 14,
-            family: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-          },
-          formatter: function(value, context) {
-            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-            const label = context.chart.data.labels[context.dataIndex];
-            // If label is too long, truncate and add ellipsis
-            const shortLabel = label.length > 15 ? label.substring(0, 12) + '...' : label;
-            return shortLabel + '\n' + percentage + '%';
-          },
-          anchor: 'center',
-          align: 'center',
-          // Only show label if sector is large enough
-          display: function(context) {
-            const value = context.dataset.data[context.dataIndex];
-            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = (value / total) * 100;
-            return percentage > 5; // Only show label for sectors larger than 5%
-          }
+          display: false // 隐藏内部标签，使用外部标签
         }
       },
       onClick: handleIndustryChartClick
     },
-    plugins: [ChartDataLabels]
+    plugins: [ChartDataLabels, externalLabelsPlugin]
   };
   
   // Create chart
   industryPieChart = new Chart(canvas, config);
+}
+
+// 添加外部标签和连接线
+function addExternalLabelsWithConnectors(canvas, chart, labels, values, colors) {
+  const ctx = canvas.getContext('2d');
+  const chartArea = chart.chartArea;
+  const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
+  const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
+  const outerRadius = Math.min(chartArea.right - chartArea.left, chartArea.bottom - chartArea.top) / 2;
+  // 实心饼图不需要内半径
+  
+  // 计算总数据
+  const total = values.reduce((a, b) => a + b, 0);
+  
+  // 设置字体以计算文本尺寸
+  ctx.font = '12px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+  
+  // 预计算所有标签位置，避免重叠
+  const labelPositions = [];
+  let currentAngle = -Math.PI / 2; // 从顶部开始
+  
+  // 第一遍：计算所有标签的基本位置
+  values.forEach((value, index) => {
+    const percentage = (value / total) * 100;
+    const sliceAngle = (value / total) * 2 * Math.PI;
+    const midAngle = currentAngle + sliceAngle / 2;
+    
+    const labelText = `${labels[index]}\n${value} (${Math.round(percentage)}%)`;
+    const labelLines = labelText.split('\n');
+    const labelHeight = labelLines.length * 14 + 4; // 增加行高以适应更大的字体
+    const labelWidth = Math.max(...labelLines.map(line => ctx.measureText(line).width)) + 8;
+    
+    const labelRadius = outerRadius + 40;
+    const endX = centerX + Math.cos(midAngle) * labelRadius;
+    const endY = centerY + Math.sin(midAngle) * labelRadius;
+    
+    let labelX, labelY;
+    if (Math.cos(midAngle) >= 0) {
+      labelX = endX + 5;
+      labelY = endY - labelHeight / 2;
+    } else {
+      labelX = endX - labelWidth - 5;
+      labelY = endY - labelHeight / 2;
+    }
+    
+    labelPositions.push({
+      index,
+      midAngle,
+      labelX,
+      labelY,
+      labelWidth,
+      labelHeight,
+      labelText,
+      labelLines,
+      startX: centerX + Math.cos(midAngle) * outerRadius,
+      startY: centerY + Math.sin(midAngle) * outerRadius,
+      endX,
+      endY
+    });
+    
+    currentAngle += sliceAngle;
+  });
+  
+  // 第二遍：调整重叠的标签位置
+  for (let i = 0; i < labelPositions.length; i++) {
+    for (let j = i + 1; j < labelPositions.length; j++) {
+      const pos1 = labelPositions[i];
+      const pos2 = labelPositions[j];
+      
+      // 检查是否重叠
+      const overlap = !(pos1.labelX + pos1.labelWidth < pos2.labelX || 
+                       pos2.labelX + pos2.labelWidth < pos1.labelX ||
+                       pos1.labelY + pos1.labelHeight < pos2.labelY ||
+                       pos2.labelY + pos2.labelHeight < pos1.labelY);
+      
+      if (overlap) {
+        // 调整第二个标签的位置
+        const offset = 15;
+        if (pos2.labelY < pos1.labelY) {
+          pos2.labelY = pos1.labelY - pos2.labelHeight - offset;
+        } else {
+          pos2.labelY = pos1.labelY + pos1.labelHeight + offset;
+        }
+      }
+    }
+  }
+  
+  // 第三遍：绘制所有标签和连接线
+  labelPositions.forEach((pos) => {
+    // 绘制连接线
+    ctx.strokeStyle = colors[pos.index];
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pos.startX, pos.startY);
+    ctx.lineTo(pos.endX, pos.endY);
+    ctx.stroke();
+    
+    // 不再绘制标签背景和边框
+    
+    // 绘制标签文字
+    ctx.fillStyle = colors[pos.index]; // 标签颜色跟随饼图颜色
+    ctx.font = '12px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    pos.labelLines.forEach((line, lineIndex) => {
+      const textY = pos.labelY + 8 + lineIndex * 14; // 增加行间距以适应更大的字体
+      ctx.fillText(line, pos.labelX + pos.labelWidth / 2, textY);
+    });
+  });
 }
 
 // Handle industry chart click event
